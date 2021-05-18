@@ -4,11 +4,14 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const dotenv = require('dotenv');
-// const connectDb = require('./config/db');
 
 // Load the environment variables
 dotenv.config({ path: 'backend/config/.env' });
 const connectDb = require('./config/db');
+// Routes
+
+const categoryRoute = require('./routes/api/category');
+
 // Initialize app
 const app = express();
 
@@ -19,6 +22,10 @@ connectDb();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors()); // to handle request coming frm diff origins e.g.client will make req frm port 3000
+
+// Routes Middleware
+
+app.use('/api/v1/categories', categoryRoute);
 
 const port = process.env.PORT || 5000;
 
