@@ -11,6 +11,7 @@ const connectDb = require('./config/db');
 // Routes
 
 const categoryRoute = require('./routes/api/category');
+const productRoute = require('./routes/api/product');
 
 // Initialize app
 const app = express();
@@ -26,6 +27,7 @@ app.use(cors()); // to handle request coming frm diff origins e.g.client will ma
 // Routes Middleware
 
 app.use('/api/v1/categories', categoryRoute);
+app.use('/api/v1/products', productRoute);
 
 const port = process.env.PORT || 5000;
 
