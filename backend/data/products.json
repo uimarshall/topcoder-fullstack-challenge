@@ -1,0 +1,53 @@
+[
+  {
+    "name": "tester",
+    "price": "23.45",
+    "description": "A better testging device by Mader",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Electronics",
+    "seller": "Utay",
+    "stock": 63,
+    "numOfReviews": 36,
+    "reviews": []
+  },
+  {
+    "name": "AB testing",
+    "price": "43.45",
+    "description": "A better testging device by Mader",
+    "ratings": 4.3,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Laptops",
+    "seller": "Utay",
+    "stock": 32,
+    "numOfReviews": 32,
+    "reviews": []
+  },
+  {
+    "name": "diet",
+    "price": "73.45",
+    "description": "A better testging device by Mader",
+    "ratings": 4.6,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Electronics",
+    "seller": "Dray",
+    "stock": 42,
+    "numOfReviews": 37,
+    "reviews": []
+  }
+]
