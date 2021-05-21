@@ -38,8 +38,8 @@ exports.getAllProducts = async (req, res) => {
   try {
     await Product.find().exec((err, productsFound) => {
       if (err) {
-        return res.status(StatusCodes.BAD_REQUEST).json({
-          message: getReasonPhrase(StatusCodes.BAD_REQUEST),
+        return res.status(StatusCodes.NOT_FOUND).json({
+          message: getReasonPhrase(StatusCodes.NOT_FOUND),
           status: FAIL,
         });
       }
@@ -57,4 +57,27 @@ exports.getAllProducts = async (req, res) => {
       });
     }
   }
+};
+
+// @desc: Get single products - For product details
+// @route: /api/v1/products/:productId(This url has a parameter called 'productId')
+// @access: public
+/* The parameter name(productId) must be consistent with
+what is passed into the route(router.get('/:productId', getSingleProduct);)
+*/
+
+exports.getSingleProduct = async (req, res) => {
+  const singleProductFound = await Product.findById(req.params.productId);
+
+  if (!singleProductFound) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      message: `Product ${getReasonPhrase(StatusCodes.NOT_FOUND)}`,
+      status: FAIL,
+    });
+  }
+
+  res.status(StatusCodes.OK).json({
+    data: singleProductFound,
+    message: SUCCESS,
+  });
 };
