@@ -67,17 +67,26 @@ what is passed into the route(router.get('/:productId', getSingleProduct);)
 */
 
 exports.getSingleProduct = async (req, res) => {
-  const singleProductFound = await Product.findById(req.params.productId);
+  try {
+    const singleProductFound = await Product.findById(req.params.productId);
 
-  if (!singleProductFound) {
-    return res.status(StatusCodes.NOT_FOUND).json({
-      message: `Product ${getReasonPhrase(StatusCodes.NOT_FOUND)}`,
-      status: FAIL,
+    if (!singleProductFound) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: `Product ${getReasonPhrase(StatusCodes.NOT_FOUND)}`,
+        status: FAIL,
+      });
+    }
+
+    res.status(StatusCodes.OK).json({
+      data: singleProductFound,
+      message: SUCCESS,
     });
+  } catch (error) {
+    if (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+        status: FAIL,
+      });
+    }
   }
-
-  res.status(StatusCodes.OK).json({
-    data: singleProductFound,
-    message: SUCCESS,
-  });
 };
