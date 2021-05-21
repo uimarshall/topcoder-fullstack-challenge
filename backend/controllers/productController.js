@@ -30,3 +30,31 @@ exports.createProduct = async (req, res) => {
     }
   }
 };
+
+// @desc: Get All products/devices
+// @route: /api/v1/products
+// @access: public
+exports.getAllProducts = async (req, res) => {
+  try {
+    await Product.find().exec((err, productsFound) => {
+      if (err) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+          message: getReasonPhrase(StatusCodes.BAD_REQUEST),
+          status: FAIL,
+        });
+      }
+      return res.status(StatusCodes.OK).json({
+        data: productsFound,
+        message: SUCCESS,
+        count: productsFound.length,
+      });
+    });
+  } catch (error) {
+    if (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+        status: FAIL,
+      });
+    }
+  }
+};
