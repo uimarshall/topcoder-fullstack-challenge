@@ -90,3 +90,40 @@ exports.getSingleProduct = async (req, res) => {
     }
   }
 };
+// @desc:Update product
+// @route: /api/v1/products/admin/:productId(This url has a parameter called 'productId')
+// @access: private
+
+exports.updateProduct = async (req, res) => {
+  try {
+    let productFound = await Product.findById(req.params.productId);
+
+    if (!productFound) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: `Product ${getReasonPhrase(StatusCodes.NOT_FOUND)}`,
+        status: FAIL,
+      });
+    }
+
+    productFound = await Product.findByIdAndUpdate(
+      req.params.productId,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      },
+    );
+    res.status(StatusCodes.OK).json({
+      data: productFound,
+      message: SUCCESS,
+    });
+  } catch (error) {
+    if (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+        status: FAIL,
+      });
+    }
+  }
+};

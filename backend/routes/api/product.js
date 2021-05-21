@@ -6,10 +6,11 @@ const {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
 } = require('../../controllers/productController');
 
 // Create product
-router.post('/new', createProduct);
+router.post('/admin/new', createProduct);
 // Second method
 // router.route('/new').post(createProduct);
 
@@ -18,5 +19,7 @@ router.get('/', getAllProducts);
 
 // Get Single Product
 router.get('/:productId', getSingleProduct);
+// Update Product
+router.put('/admin/:productId', updateProduct);
 
 module.exports = router;
