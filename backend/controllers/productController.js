@@ -44,9 +44,9 @@ exports.getAllProducts = async (req, res) => {
         });
       }
       return res.status(StatusCodes.OK).json({
+        count: productsFound.length,
         data: productsFound,
         message: SUCCESS,
-        count: productsFound.length,
       });
     });
   } catch (error) {
@@ -90,6 +90,7 @@ exports.getSingleProduct = async (req, res) => {
     }
   }
 };
+
 // @desc:Update product
 // @route: /api/v1/products/admin/:productId(This url has a parameter called 'productId')
 // @access: private
@@ -117,6 +118,35 @@ exports.updateProduct = async (req, res) => {
     res.status(StatusCodes.OK).json({
       data: productFound,
       message: SUCCESS,
+    });
+  } catch (error) {
+    if (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+        status: FAIL,
+      });
+    }
+  }
+};
+// @desc:Delete product
+// @route: /api/v1/products/admin/:productId(This url has a parameter called 'productId')
+// @access: private
+
+exports.deleteProduct = async (req, res) => {
+  try {
+    const productFound = await Product.findById(req.params.productId);
+
+    if (!productFound) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: `Product ${getReasonPhrase(StatusCodes.NOT_FOUND)}`,
+        status: FAIL,
+      });
+    }
+
+    await productFound.remove();
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Device deleted successfully',
     });
   } catch (error) {
     if (error) {
