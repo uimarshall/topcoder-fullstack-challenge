@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const ErrorHandler = require('../utils/errorHandler');
 
 module.exports = (err, req, res, next) => {
@@ -14,9 +15,17 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
     error.message = err.message;
 
-    // Wrong Mongoose object ID Error
+    // Handling Wrong Mongoose object ID Error
+    // This error occurs when a wrong id is passed in a route
     if (err.name === 'CastError') {
       const message = `Resource not found. Invalid:${err.path}`;
+      error = new ErrorHandler(message, 400);
+    }
+
+    // Handling Mongoose validation errors
+    // This error occurs for fields that are required in the db schema.
+    if (err.name === 'ValidationError') {
+      const message = Object.values(err.errors).map((value) => value.message);
       error = new ErrorHandler(message, 400);
     }
 
