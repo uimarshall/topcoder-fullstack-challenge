@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const dotenv = require('dotenv');
+const errorMiddleware = require('./middlewares/errors');
 
 // Load the environment variables
 dotenv.config({ path: 'backend/config/.env' });
@@ -28,6 +29,9 @@ app.use(cors()); // to handle request coming frm diff origins e.g.client will ma
 
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/products', productRoute);
+
+// Custom Error Middleware to handle error
+app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 

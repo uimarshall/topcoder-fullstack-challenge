@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 const HttpStatus = require('http-status-codes');
 const Product = require('../models/Product');
-const { errorHandler } = require('../utils/dbErrorHandler');
+const ErrorHandler = require('../utils/errorHandler');
 const StatusText = require('../lib/constants/constants');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
@@ -66,7 +66,7 @@ exports.getAllProducts = async (req, res) => {
 what is passed into the route(router.get('/:productId', getSingleProduct);)
 */
 
-exports.getSingleProduct = async (req, res) => {
+/* exports.getSingleProduct = async (req, res) => {
   try {
     const singleProductFound = await Product.findById(req.params.productId);
 
@@ -89,6 +89,27 @@ exports.getSingleProduct = async (req, res) => {
       });
     }
   }
+}; */
+
+exports.getSingleProduct = async (req, res, next) => {
+  const singleProductFound = await Product.findById(req.params.productId);
+
+  if (!singleProductFound) {
+    return next(new ErrorHandler('Product not found!', 404));
+  }
+
+  res.status(StatusCodes.OK).json({
+    data: singleProductFound,
+    message: SUCCESS,
+  });
+  // } catch (error) {
+  //   if (error) {
+  //     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+  //       message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+  //       status: FAIL,
+  //     });
+  //   }
+  // }
 };
 
 // @desc:Update product
