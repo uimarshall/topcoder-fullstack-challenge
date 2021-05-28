@@ -7,8 +7,8 @@ const { ObjectId } = mongoose.Schema;
 const ProductSchema = new Schema({
   name: {
     type: String,
-    trim: [true, 'Please enter a product name'],
-    required: true,
+    required: [true, 'Please enter a product name'],
+    trim: true,
     maxlength: [32, 'Product name must be at least 32 characters'],
   },
   description: {
