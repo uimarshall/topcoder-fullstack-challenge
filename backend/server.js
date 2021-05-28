@@ -4,7 +4,14 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const dotenv = require('dotenv');
+
 const errorMiddleware = require('./middlewares/errors');
+
+// Handle uncaught exceptions error
+// process.on('uncaughtException', (err) => {
+//   console.log(`ERROR: ${err.stack}`);
+//   console.log('Shutting down the server due to uncaughtException');
+// });
 
 // Load the environment variables
 dotenv.config({ path: 'backend/config/.env' });
@@ -37,7 +44,7 @@ const port = process.env.PORT || 5000;
 
 const server = app.listen(port, () => {
   console.log(
-    `Server is running on port ${port} in ${process.env.NODE_ENV} mode.`,
+    `Server is running on port ${port} in ${process.env.NODE_ENV} mode.`
   );
 });
 
