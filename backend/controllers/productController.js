@@ -4,6 +4,7 @@ const HttpStatus = require('http-status-codes');
 const Product = require('../models/Product');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const APIFeatures = require('../utils/apiFeatures');
 const StatusText = require('../lib/constants/constants');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
@@ -43,10 +44,13 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 // };
 
 // @desc: Get All products/devices
-// @route: /api/v1/products
+// @route: /api/v1/products?keyword=phone
 // @access: public
+// Product.find() = query
+// req.query = queryStr
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
-  await Product.find().exec((err, productsFound) => {
+  const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+  await apiFeatures.query.exec((err, productsFound) => {
     if (err) {
       return res.status(StatusCodes.NOT_FOUND).json({
         message: getReasonPhrase(StatusCodes.NOT_FOUND),
