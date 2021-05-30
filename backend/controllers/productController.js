@@ -49,7 +49,9 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 // Product.find() = query
 // req.query = queryStr
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
-  const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+  const apiFeatures = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter();
   await apiFeatures.query.exec((err, productsFound) => {
     if (err) {
       return res.status(StatusCodes.NOT_FOUND).json({

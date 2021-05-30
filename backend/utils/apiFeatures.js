@@ -21,6 +21,22 @@ class APIFeatures {
     this.query = this.query.find({ ...keyword });
     return this;
   }
+
+  filter() {
+    const queryCopy = { ...this.queryStr };
+    console.log(queryCopy);
+    // Removing fields from the query,bc this fields are not in our db schema
+    const removeFields = ['keyword', 'limit', 'page'];
+    removeFields.forEach((elem) => delete queryCopy[elem]);
+
+    // Advance filters for price, ratings etc.
+    let queryStr = JSON.stringify(queryCopy); // convert to object
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
+    console.log(queryCopy);
+    console.log(queryStr);
+    this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  }
 }
 
 module.exports = APIFeatures;
