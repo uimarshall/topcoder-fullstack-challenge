@@ -49,5 +49,56 @@
     "stock": 42,
     "numOfReviews": 37,
     "reviews": []
+  },
+  {
+    "name": "bubba",
+    "price": "103.45",
+    "description": "A better testging device by Mader",
+    "ratings": 3.6,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Clothes/Shoes",
+    "seller": "Dray",
+    "stock": 39,
+    "numOfReviews": 37,
+    "reviews": []
+  },
+  {
+    "name": "Doctor digest",
+    "price": "103.45",
+    "description": "A better testging device by Mader",
+    "ratings": 3.6,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Books",
+    "seller": "Dray",
+    "stock": 39,
+    "numOfReviews": 37,
+    "reviews": []
+  },
+  {
+    "name": "graper",
+    "price": "103.45",
+    "description": "A better testging device by Mader",
+    "ratings": 4.6,
+    "images": [
+      {
+        "public_id": "products/dfgt",
+        "url": "htts://"
+      }
+    ],
+    "category": "Electronics",
+    "seller": "Dray",
+    "stock": 56,
+    "numOfReviews": 77,
+    "reviews": []
   }
 ]
