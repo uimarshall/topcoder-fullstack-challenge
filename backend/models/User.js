@@ -59,6 +59,15 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
+// Compare user password
+UserSchema.methods.comparePassword = async function (currEnteredPassword) {
+  const passwordMatch = await bcrypt.compare(
+    currEnteredPassword,
+    this.password,
+  );
+  return passwordMatch;
+};
+
 // Return JWT token
 UserSchema.methods.getJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {

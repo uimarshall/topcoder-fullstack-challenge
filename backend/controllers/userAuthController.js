@@ -22,10 +22,47 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
     password,
     avatar: { public_id: 'https/avatar.png', url: 'https/avatar' },
   });
-  const token = newUser.getJwtToken();
-  return res.status(StatusCodes.CREATED).json({
+  let token = newUser.getJwtToken();
+  token = `Bearer ${token}`;
+
+  res.status(StatusCodes.CREATED).json({
     // data: newUser,
     message: SUCCESS,
     token,
+  });
+});
+
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
+  const { email, password } = req.body;
+  // Check if email and password is entered in by user
+  if (!email || !password) {
+    return next(new ErrorHandler('Please enter email and password', 400));
+  }
+
+  // Find user in database
+  const userFound = await User.findOne({ email }).select('+password');
+  if (!userFound) {
+    return next(new ErrorHandler('Invalid email or password', 401));
+  }
+
+  // Check if password is correct or not
+  const isPasswordMatched = await userFound.comparePassword(password);
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler('Invalid email or password', 401));
+  }
+
+  let token = userFound.getJwtToken();
+  token = `Bearer ${token}`;
+  const { _id, name, role } = userFound;
+
+  return res.status(StatusCodes.OK).json({
+    message: SUCCESS,
+    token,
+    userFound: {
+      _id,
+      email,
+      name,
+      role,
+    },
   });
 });
