@@ -1,4 +1,8 @@
+/* eslint-disable func-names */
 const mongoose = require('mongoose');
+
+const bcrypt = require('bcryptjs');
+
 const validator = require('validator');
 
 const { Schema } = mongoose;
@@ -41,6 +45,14 @@ const UserSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+});
+
+// Encrypt password before saving user to database
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 module.exports = mongoose.model('User', UserSchema);

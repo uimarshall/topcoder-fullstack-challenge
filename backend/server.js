@@ -18,6 +18,7 @@ dotenv.config({ path: 'backend/config/.env' });
 const connectDb = require('./config/db');
 // Routes
 
+const userAuthRoute = require('./routes/api/userAuth');
 const categoryRoute = require('./routes/api/category');
 const productRoute = require('./routes/api/product');
 
@@ -34,6 +35,7 @@ app.use(cors()); // to handle request coming frm diff origins e.g.client will ma
 
 // Routes Middleware
 
+app.use('/api/v1/users', userAuthRoute);
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/products', productRoute);
 
