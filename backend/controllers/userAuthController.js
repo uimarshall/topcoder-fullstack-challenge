@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable consistent-return */
 const HttpStatus = require('http-status-codes');
 const User = require('../models/User');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 const StatusText = require('../lib/constants/constants');
+const sendToken = require('../utils/jwtToken');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
 const {
@@ -22,14 +24,16 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
     password,
     avatar: { public_id: 'https/avatar.png', url: 'https/avatar' },
   });
-  let token = newUser.getJwtToken();
-  token = `Bearer ${token}`;
 
-  res.status(StatusCodes.CREATED).json({
-    // data: newUser,
-    message: SUCCESS,
-    token,
-  });
+  sendToken(newUser, 200, res);
+  // let token = newUser.getJwtToken();
+  // token = `Bearer ${token}`;
+
+  // res.status(StatusCodes.CREATED).json({
+  //   // data: newUser,
+  //   message: SUCCESS,
+  //   token,
+  // });
 });
 
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
@@ -51,18 +55,20 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler('Invalid email or password', 401));
   }
 
-  let token = userFound.getJwtToken();
-  token = `Bearer ${token}`;
-  const { _id, name, role } = userFound;
+  sendToken(userFound, 200, res);
 
-  return res.status(StatusCodes.OK).json({
-    message: SUCCESS,
-    token,
-    userFound: {
-      _id,
-      email,
-      name,
-      role,
-    },
-  });
+  // let token = userFound.getJwtToken();
+  // token = `Bearer ${token}`;
+  // const { _id, name, role } = userFound;
+
+  // return res.status(StatusCodes.OK).json({
+  //   message: SUCCESS,
+  //   token,
+  //   userFound: {
+  //     _id,
+  //     email,
+  //     name,
+  //     role,
+  //   },
+  // });
 });
