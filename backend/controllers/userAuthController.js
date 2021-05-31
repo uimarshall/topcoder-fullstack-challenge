@@ -22,8 +22,10 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
     password,
     avatar: { public_id: 'https/avatar.png', url: 'https/avatar' },
   });
+  const token = newUser.getJwtToken();
   return res.status(StatusCodes.CREATED).json({
-    data: newUser,
+    // data: newUser,
     message: SUCCESS,
+    token,
   });
 });

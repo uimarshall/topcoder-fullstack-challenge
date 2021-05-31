@@ -1,4 +1,8 @@
 /* eslint-disable func-names */
+/* eslint-disable  no-underscore-dangle */
+
+const jwt = require('jsonwebtoken');
+
 const mongoose = require('mongoose');
 
 const bcrypt = require('bcryptjs');
@@ -54,5 +58,12 @@ UserSchema.pre('save', async function (next) {
   }
   this.password = await bcrypt.hash(this.password, 10);
 });
+
+// Return JWT token
+UserSchema.methods.getJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION_TIME,
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);
