@@ -49,9 +49,13 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 // Product.find() = query
 // req.query = queryStr
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+  const resPerPage = 4;
+  // Count total number of documents in the Db
+  const productCount = Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(resPerPage);
   await apiFeatures.query.exec((err, productsFound) => {
     if (err) {
       return res.status(StatusCodes.NOT_FOUND).json({
@@ -61,6 +65,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
     }
     return res.status(StatusCodes.OK).json({
       count: productsFound.length,
+      productCount,
       data: productsFound,
       message: SUCCESS,
     });
