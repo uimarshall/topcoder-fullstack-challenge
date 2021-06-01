@@ -96,6 +96,11 @@ const ProductSchema = new Schema({
       message: 'Please select the correct product category',
     },
   },
+  user: {
+    type: ObjectId,
+    ref: 'User',
+    required: true,
+  },
   createdAt: { type: Date, default: Date.now },
 });
 

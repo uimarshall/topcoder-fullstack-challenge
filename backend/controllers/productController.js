@@ -13,9 +13,11 @@ const {
 } = HttpStatus;
 
 // @desc: Create a new product/device
-// @route: /api/v1/products/new
+// @route: /api/v1/products/admin/new
 // @access: protected
 exports.createProduct = catchAsyncErrors(async (req, res) => {
+  // Add the user creating the product to the request body
+  req.body.user = req.user.id;
   const newProduct = await new Product(req.body);
   const productCreated = await newProduct.save();
   return res.status(StatusCodes.CREATED).json({
@@ -51,7 +53,7 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   const resPerPage = 4;
   // Count total number of documents in the Db
-  const productCount = Product.countDocuments();
+  const productCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()

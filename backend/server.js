@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const dotenv = require('dotenv');
 
@@ -18,6 +20,7 @@ dotenv.config({ path: 'backend/config/.env' });
 const connectDb = require('./config/db');
 // Routes
 
+const userAuthRoute = require('./routes/api/userAuth');
 const categoryRoute = require('./routes/api/category');
 const productRoute = require('./routes/api/product');
 
@@ -29,11 +32,14 @@ connectDb();
 
 // Middleware
 app.use(morgan('dev'));
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors()); // to handle request coming frm diff origins e.g.client will make req frm port 3000
 
 // Routes Middleware
 
+app.use('/api/v1/users', userAuthRoute);
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/products', productRoute);
 
