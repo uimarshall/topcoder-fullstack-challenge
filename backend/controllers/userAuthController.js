@@ -14,7 +14,7 @@ const {
 } = HttpStatus;
 
 // @desc: Register a new user
-// @route: /api/v1/products/new
+// @route: /api/v1/users/register
 // @access: protected
 exports.registerUser = catchAsyncErrors(async (req, res) => {
   const { name, email, password } = req.body;
@@ -35,6 +35,10 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
   //   token,
   // });
 });
+
+// @desc: Login a user
+// @route: /api/v1/users/login
+// @access: protected
 
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
@@ -71,4 +75,22 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   //     role,
   //   },
   // });
+});
+
+// @desc: Logout a user
+// @route: /api/v1/users/logout
+// @access: protected
+
+exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+  // To logout is to clear the cookie stored during login/sign up,
+  // hence set token to 'null' and expires it immediately with Date.now()
+  res.cookie('token', null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Logged out successfully',
+  });
 });

@@ -14,18 +14,18 @@ const {
 const { isAuthenticated } = require('../../middlewares/auth');
 
 // Create product
-router.post('/admin/new', createProduct);
+router.post('/admin/new', isAuthenticated, createProduct);
 // Second method
 // router.route('/new').post(createProduct);
 
 // Get all products
-router.get('/', isAuthenticated, getAllProducts);
+router.get('/', getAllProducts);
 
 // Get Single Product
 router.get('/:productId', getSingleProduct);
 // Update Product
-router.put('/admin/:productId', updateProduct);
+router.put('/admin/:productId', isAuthenticated, updateProduct);
 // Delete Product
-router.delete('/admin/:productId', deleteProduct);
+router.delete('/admin/:productId', isAuthenticated, deleteProduct);
 
 module.exports = router;
