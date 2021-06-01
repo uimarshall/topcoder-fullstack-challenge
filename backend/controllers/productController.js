@@ -51,7 +51,7 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   const resPerPage = 4;
   // Count total number of documents in the Db
-  const productCount = Product.countDocuments();
+  const productCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
