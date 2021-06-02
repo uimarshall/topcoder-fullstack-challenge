@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+const crypto = require('crypto');
+
 /* eslint-disable consistent-return */
 const HttpStatus = require('http-status-codes');
 const User = require('../models/User');
@@ -7,6 +10,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 const StatusText = require('../lib/constants/constants');
 const sendToken = require('../utils/jwtToken');
+const sendEmail = require('../utils/sendEmail');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
 const {
@@ -93,4 +97,85 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
     success: true,
     message: 'Logged out successfully',
   });
+});
+
+// @desc: Forgot Password
+// @route: /api/v1/users/password/forgot
+// @access: protected
+
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const { email } = req.body;
+  const userFound = await User.findOne({ email });
+  if (!userFound) {
+    return next(new ErrorHandler('User with this email not found', 404));
+  }
+  // Get reset token
+  const resetToken = userFound.getResetPasswordToken();
+
+  await userFound.save({ validateBeforeSave: false });
+
+  // Create reset password url
+  // req.protocol=https or http
+  const resetUrl = `${req.protocol}://${req.get(
+    'host',
+  )}/api/v1/users/password/reset/${resetToken}`;
+
+  // Message to user
+  const message = `Your password reset token is as follows:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it!`;
+
+  try {
+    await sendEmail({
+      email: userFound.email,
+      subject: 'Wavin Password Recovery',
+      message,
+    });
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: `Email sent to: ${userFound.email}`,
+    });
+  } catch (error) {
+    userFound.resetPasswordToken = undefined;
+    userFound.resetPasswordExpire = undefined;
+    // We cannot save to db if error
+    await userFound.save({ validateBeforeSave: false });
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+// @desc: Password Reset
+// @route: /api/v1/users/password/reset/:token
+// @access: protected
+
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  // Hash url token
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+  // Compare the hashed token to the one stored in the Db
+  const userFound = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!userFound) {
+    return next(
+      new ErrorHandler('Password reset token is invalid or has expired', 400),
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler('Password does not match!', 400));
+  }
+
+  //  If user found - Setup new password
+  userFound.password = req.body.password;
+  // Destroy the token
+  userFound.resetPasswordToken = undefined;
+  userFound.resetPasswordExpire = undefined;
+
+  await userFound.save();
+
+  // Send token again
+  sendToken(userFound, 200, res);
 });
