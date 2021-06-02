@@ -179,3 +179,16 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   // Send token again
   sendToken(userFound, 200, res);
 });
+
+// @desc: Get currently loggged in user details
+// @route: /api/v1/users/me
+// @access: protected
+
+exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
+  const userFound = await User.findById(req.user.id);
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    data: userFound,
+  });
+});
