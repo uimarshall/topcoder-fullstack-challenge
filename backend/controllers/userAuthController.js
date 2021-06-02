@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+const crypto = require('crypto');
+
 /* eslint-disable consistent-return */
 const HttpStatus = require('http-status-codes');
 const User = require('../models/User');
@@ -137,4 +140,42 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     await userFound.save({ validateBeforeSave: false });
     return next(new ErrorHandler(error.message, 500));
   }
+});
+
+// @desc: Password Reset
+// @route: /api/v1/users/password/reset/:token
+// @access: protected
+
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  // Hash url token
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+  // Compare the hashed token to the one stored in the Db
+  const userFound = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!userFound) {
+    return next(
+      new ErrorHandler('Password reset token is invalid or has expired', 400),
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler('Password does not match!', 400));
+  }
+
+  //  If user found - Setup new password
+  userFound.password = req.body.password;
+  // Destroy the token
+  userFound.resetPasswordToken = undefined;
+  userFound.resetPasswordExpire = undefined;
+
+  await userFound.save();
+
+  // Send token again
+  sendToken(userFound, 200, res);
 });
