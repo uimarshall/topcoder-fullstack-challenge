@@ -192,3 +192,19 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
     data: userFound,
   });
 });
+// @desc: Update password
+// @route: /api/v1/users/password/update
+// @access: protected
+
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const userFound = await User.findById(req.user.id).select('+password');
+  // Check previous user password
+  const isMatch = await userFound.comparePassword(req.body.oldPassword);
+  if (!isMatch) {
+    return next(new ErrorHandler('Old Password is incorrect'));
+  }
+  userFound.password = req.body.password;
+  await userFound.save();
+
+  sendToken(userFound, 200, res);
+});
