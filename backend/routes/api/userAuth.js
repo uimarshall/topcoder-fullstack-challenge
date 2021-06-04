@@ -11,9 +11,14 @@ const {
   getUserProfile,
   updatePassword,
   updateProfile,
+  getAllUsers,
+  getUserDetails,
 } = require('../../controllers/userAuthController');
 
-const { isAuthenticated } = require('../../middlewares/auth');
+const {
+  isAuthenticated,
+  isAuthorizedRoles,
+} = require('../../middlewares/auth');
 
 // Create/Register user
 router.post('/register', registerUser);
@@ -31,5 +36,17 @@ router.put('/password/update', isAuthenticated, updatePassword);
 router.put('/me/update', isAuthenticated, updateProfile);
 // Logout user
 router.get('/logout', logoutUser);
+
+// Admin routes
+
+// Get all users - only admin can do this
+router.get('/admin', isAuthenticated, isAuthorizedRoles('admin'), getAllUsers);
+// Get single user details - only admin can do this
+router.get(
+  '/admin/:id',
+  isAuthenticated,
+  isAuthorizedRoles('admin'),
+  getUserDetails,
+);
 
 module.exports = router;

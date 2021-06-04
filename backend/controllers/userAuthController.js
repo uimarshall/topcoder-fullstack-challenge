@@ -232,3 +232,36 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   sendToken(userFound, 200, res);
 });
+
+// Admin Routes
+
+// @desc: Get all users- Only admin can get all users
+// @route: /api/v1/users/admin
+// @access: protected
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const usersFound = await User.find();
+  res.status(StatusCodes.OK).json({
+    count: usersFound.length,
+    success: true,
+    data: usersFound,
+  });
+});
+
+// @desc: Get currently loggged in user details
+// @route: /api/v1/users/admin/:id
+// @access: protected
+
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const userFound = await User.findById(req.params.id);
+  if (!userFound) {
+    return next(
+      new ErrorHandler(`User is not found with this id: ${req.params.id}`),
+    );
+  }
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    data: userFound,
+  });
+});
