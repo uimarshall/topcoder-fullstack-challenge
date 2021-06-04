@@ -192,6 +192,7 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
     data: userFound,
   });
 });
+
 // @desc: Update password
 // @route: /api/v1/users/password/update
 // @access: protected
@@ -203,8 +204,31 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   if (!isMatch) {
     return next(new ErrorHandler('Old Password is incorrect'));
   }
+  // Set the new password to what is coming from the req body.
   userFound.password = req.body.password;
   await userFound.save();
+
+  sendToken(userFound, 200, res);
+});
+
+// @desc: Update user profile/user-details
+// @route: /api/v1/users/me/update
+// @access: protected
+
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const { name, email } = req.body;
+  const newUser = { name, email };
+
+  // Update avatar: TODO
+  const userFound = await User.findByIdAndUpdate(req.user.id, newUser, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+  });
 
   sendToken(userFound, 200, res);
 });

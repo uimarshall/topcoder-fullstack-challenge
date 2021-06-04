@@ -10,6 +10,7 @@ const {
   resetPassword,
   getUserProfile,
   updatePassword,
+  updateProfile,
 } = require('../../controllers/userAuthController');
 
 const { isAuthenticated } = require('../../middlewares/auth');
@@ -18,7 +19,7 @@ const { isAuthenticated } = require('../../middlewares/auth');
 router.post('/register', registerUser);
 // Login user
 router.post('/login', loginUser);
-// Currently Login user
+// Currently Login user-details or profile
 router.get('/me', isAuthenticated, getUserProfile);
 // Forgot password
 router.post('/password/forgot', forgotPassword);
@@ -26,6 +27,8 @@ router.post('/password/forgot', forgotPassword);
 router.put('/password/reset/:token', resetPassword);
 // Update password
 router.put('/password/update', isAuthenticated, updatePassword);
+// Update user profile or details
+router.put('/me/update', isAuthenticated, updateProfile);
 // Logout user
 router.get('/logout', logoutUser);
 
