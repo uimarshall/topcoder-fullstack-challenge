@@ -13,6 +13,8 @@ const {
   updateProfile,
   getAllUsers,
   getUserDetails,
+  updateUserProfile,
+  deleteUser,
 } = require('../../controllers/userAuthController');
 
 const {
@@ -47,6 +49,21 @@ router.get(
   isAuthenticated,
   isAuthorizedRoles('admin'),
   getUserDetails,
+);
+
+// Update user profile/details - only admin can do this
+router.put(
+  '/admin/update/:id',
+  isAuthenticated,
+  isAuthorizedRoles('admin'),
+  updateUserProfile,
+);
+// Delete user - only admin can do this
+router.delete(
+  '/admin/delete/:id',
+  isAuthenticated,
+  isAuthorizedRoles('admin'),
+  deleteUser,
 );
 
 module.exports = router;
