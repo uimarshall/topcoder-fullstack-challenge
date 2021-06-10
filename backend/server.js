@@ -23,6 +23,7 @@ const connectDb = require('./config/db');
 const userAuthRoute = require('./routes/api/userAuth');
 const categoryRoute = require('./routes/api/category');
 const productRoute = require('./routes/api/product');
+const orderRoute = require('./routes/api/order');
 
 // Initialize app
 const app = express();
@@ -42,6 +43,7 @@ app.use(cors()); // to handle request coming frm diff origins e.g.client will ma
 app.use('/api/v1/users', userAuthRoute);
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/products', productRoute);
+app.use('/api/v1', orderRoute);
 
 // Custom Error Middleware to handle error
 app.use(errorMiddleware);
