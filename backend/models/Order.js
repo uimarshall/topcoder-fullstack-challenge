@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-const { ObjectId } = mongoose.Schema;
+const { Schema, ObjectId } = mongoose;
 
-const OrderSchema = new Schema(
+// Write your order schema here
+const orderSchema = new Schema(
   {
     shippingInfo: {
       address: {
@@ -97,9 +97,9 @@ const OrderSchema = new Schema(
       type: Date,
     },
   },
+
   { timestamps: true },
 );
 
-const Order = mongoose.model('order', OrderSchema);
-
+const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;
