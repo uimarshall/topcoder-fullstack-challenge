@@ -5,6 +5,7 @@ const {
   getSingleOrder,
   myOrder,
   allOrders,
+  updateOrders,
 } = require('../../controllers/orderController');
 const {
   isAuthenticated,
@@ -25,6 +26,13 @@ router.get(
   isAuthenticated,
   isAuthorizedRoles('admin'),
   allOrders,
+);
+// Get all the orders- only by admin.
+router.put(
+  '/admin/order/:id',
+  isAuthenticated,
+  isAuthorizedRoles('admin'),
+  updateOrders,
 );
 
 module.exports = router;
