@@ -16,7 +16,7 @@ const router = express.Router();
 router.post('/order/new', isAuthenticated, createOrder);
 // Get Single order
 router.get('/order/:id', isAuthenticated, getSingleOrder);
-// Get logged in user order
-router.get('/order/me', isAuthenticated, myOrder);
+// Get all the orders of the logged in user.
+router.get('/orders/me', isAuthenticated, myOrder);
 
 module.exports = router;

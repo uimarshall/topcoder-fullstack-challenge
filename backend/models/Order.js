@@ -32,6 +32,8 @@ const orderSchema = new Schema(
       required: true,
       ref: 'User',
     },
+    // orderItems is the array of products a user want to buy.
+
     orderItems: [
       {
         name: {

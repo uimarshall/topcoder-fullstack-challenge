@@ -35,7 +35,9 @@ exports.createOrder = catchAsyncErrors(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     paymentInfo,
+    // paidAt- This means as at the time of creating the order, the user has paid for that order.
     paidAt: Date.now(),
+
     user: req.user._id,
   });
 
@@ -65,18 +67,15 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// @desc: Get logged in user order
+// @desc: Get all the orders of the logged in user.
 // @route: /api/v1/order/me
 // @access: protected
 
 exports.myOrder = catchAsyncErrors(async (req, res, next) => {
   const myOrderFound = await Order.find({ user: req.user.id });
 
-  if (!myOrderFound) {
-    return next(new ErrorHandler('Order not found!', 404));
-  }
-
   res.status(StatusCodes.OK).json({
+    count: myOrderFound.length,
     success: true,
     data: myOrderFound,
   });
