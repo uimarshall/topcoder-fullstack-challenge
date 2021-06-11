@@ -80,3 +80,22 @@ exports.myOrder = catchAsyncErrors(async (req, res, next) => {
     data: myOrderFound,
   });
 });
+
+// @desc: Get all the orders - only by admin.
+// @route: /api/v1/admin/orders
+// @access: protected
+
+exports.allOrders = catchAsyncErrors(async (req, res, next) => {
+  const allOrdersFound = await Order.find();
+  let totalAmount = 0;
+  allOrdersFound.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(StatusCodes.OK).json({
+    count: allOrdersFound.length,
+    success: true,
+    totalAmount,
+    data: allOrdersFound,
+  });
+});
