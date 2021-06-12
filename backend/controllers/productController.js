@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
 const HttpStatus = require('http-status-codes');
 const Product = require('../models/Product');
 const ErrorHandler = require('../utils/errorHandler');
@@ -227,6 +228,44 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   res.status(StatusCodes.OK).json({
     success: true,
     message: 'Device deleted successfully',
+  });
+});
+
+// @desc:Create product Review
+// @route: /api/v1/products/review
+// @access: private
+
+exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+  };
+
+  // If the user has already reviewed product, then update the review.
+  const product = await Product.findById(productId);
+  const isReviewed = product.reviews.find(
+    (review) => review.user.toString() === req.user._id.toString(),
+  );
+  if (isReviewed) {
+    product.reviews.forEach((review) => {
+      if (review.user.toString() === req.user._id.toString()) {
+        review.comment = comment;
+        review.rating = rating;
+      }
+    });
+  } else {
+    product.reviews.push(review);
+    // update numOfReviews
+    product.numOfReviews = product.reviews.length;
+  }
+  product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0)
+    / product.reviews.length;
+  await product.save({ validateBeforeSave: false });
+  res.status(StatusCodes.OK).json({
+    success: true,
   });
 });
 

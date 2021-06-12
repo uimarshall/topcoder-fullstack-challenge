@@ -8,6 +8,7 @@ const {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  createProductReview,
 } = require('../../controllers/productController');
 
 // Middlewares
@@ -45,5 +46,8 @@ router.delete(
   isAuthorizedRoles('admin'),
   deleteProduct,
 );
+
+// Update Product with Reviews
+router.put('/review', isAuthenticated, createProductReview);
 
 module.exports = router;
