@@ -80,3 +80,76 @@ exports.myOrder = catchAsyncErrors(async (req, res, next) => {
     data: myOrderFound,
   });
 });
+
+// @desc: Get all the orders - only by admin.
+// @route: /api/v1/admin/orders
+// @access: protected
+
+exports.allOrders = catchAsyncErrors(async (req, res, next) => {
+  const allOrdersFound = await Order.find();
+  let totalAmount = 0;
+  allOrdersFound.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(StatusCodes.OK).json({
+    count: allOrdersFound.length,
+    success: true,
+    totalAmount,
+    data: allOrdersFound,
+  });
+});
+
+// @desc: Update/Process orders - only by admin.
+// @route: /api/v1/admin/order/:id
+// @access: protected
+
+// id - Is the id of the product whose order has been placed/booked.
+// quantity - is the quantity(ordered) we want to subtract from the product stock
+const updateStock = async (id, quantity) => {
+  const product = await Product.findById(id);
+  // reduce stock by the quantity ordered.
+  product.stock -= quantity;
+  // await product.save();
+  await product.save({ validateBeforeSave: false });
+};
+
+exports.updateOrders = catchAsyncErrors(async (req, res, next) => {
+  const orderFound = await Order.findById(req.params.id);
+  // check if order is already delivered
+  if (orderFound.orderStatus === 'Delivered') {
+    return next(new ErrorHandler('This order is already delivered', 400));
+  }
+
+  // If not delivered, then update the stock of the product based on order
+  orderFound.orderItems.forEach(async (item) => {
+    await updateStock(item.product, item.quantity);
+  });
+
+  // Update the orderStatus after updating the stock
+  orderFound.orderStatus = req.body.status;
+  orderFound.deliveredAt = Date.now();
+  await orderFound.save();
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+  });
+});
+
+// @desc: Delete order
+// @route: /api/v1/admin/order/:id
+// @access: protected
+
+exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
+  const orderFound = await Order.findById(req.params.id);
+
+  if (!orderFound) {
+    return next(new ErrorHandler('Order not found!', 404));
+  }
+
+  await orderFound.remove();
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+  });
+});
