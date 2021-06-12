@@ -135,3 +135,21 @@ exports.updateOrders = catchAsyncErrors(async (req, res, next) => {
     success: true,
   });
 });
+
+// @desc: Delete order
+// @route: /api/v1/admin/order/:id
+// @access: protected
+
+exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
+  const orderFound = await Order.findById(req.params.id);
+
+  if (!orderFound) {
+    return next(new ErrorHandler('Order not found!', 404));
+  }
+
+  await orderFound.remove();
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+  });
+});

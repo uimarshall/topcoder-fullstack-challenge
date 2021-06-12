@@ -6,6 +6,7 @@ const {
   myOrder,
   allOrders,
   updateOrders,
+  deleteOrder,
 } = require('../../controllers/orderController');
 const {
   isAuthenticated,
@@ -33,6 +34,14 @@ router.put(
   isAuthenticated,
   isAuthorizedRoles('admin'),
   updateOrders,
+);
+
+// Delete order- only by admin.
+router.delete(
+  '/admin/order/:id',
+  isAuthenticated,
+  isAuthorizedRoles('admin'),
+  deleteOrder,
 );
 
 module.exports = router;
