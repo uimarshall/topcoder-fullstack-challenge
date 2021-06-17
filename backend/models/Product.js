@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = mongoose.Schema;
+const { ObjectId } = mongoose.Schema.Types;
 
 const ProductSchema = new Schema({
   name: {
@@ -59,6 +59,11 @@ const ProductSchema = new Schema({
   ],
   reviews: [
     {
+      user: {
+        type: ObjectId,
+        ref: 'User',
+        required: true,
+      },
       name: {
         required: true,
         type: String,
@@ -73,6 +78,10 @@ const ProductSchema = new Schema({
       },
     },
   ],
+  numOfReviews: {
+    type: Number,
+    default: 0,
+  },
   category: {
     type: String,
     required: [true, 'Please select for this product'],
