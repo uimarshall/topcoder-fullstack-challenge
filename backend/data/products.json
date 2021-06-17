@@ -21,6 +21,7 @@
     "price": "43.45",
     "description": "A better testging device by Mader",
     "ratings": 4.3,
+    "numOfRatings": 0,
     "images": [
       {
         "public_id": "products/dfgt",
@@ -38,6 +39,7 @@
     "price": "73.45",
     "description": "A better testging device by Mader",
     "ratings": 4.6,
+    "numOfRatings": 0,
     "images": [
       {
         "public_id": "products/dfgt",
@@ -55,6 +57,7 @@
     "price": "103.45",
     "description": "A better testging device by Mader",
     "ratings": 3.6,
+    "numOfRatings": 0,
     "images": [
       {
         "public_id": "products/dfgt",
@@ -72,6 +75,7 @@
     "price": "103.45",
     "description": "A better testging device by Mader",
     "ratings": 3.6,
+    "numOfRatings": 0,
     "images": [
       {
         "public_id": "products/dfgt",
@@ -89,6 +93,7 @@
     "price": "103.45",
     "description": "A better testging device by Mader",
     "ratings": 4.6,
+    "numOfRatings": 0,
     "images": [
       {
         "public_id": "products/dfgt",

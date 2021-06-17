@@ -269,6 +269,49 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// @desc:Get product Reviews
+// @route: /api/v1/products/reviews/:id
+// @access: private
+
+exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const productFound = await Product.findById(req.params.id); // pass id in the query str
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    reviews: productFound.reviews,
+  });
+});
+
+// @desc:Delete product Reviews
+// @route: /api/v1/products/reviews/:id
+// @access: private
+
+exports.deleteProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const productFound = await Product.findById(req.query.productId);
+  // Filter/return the reviews that we don't want to delete,
+  //  i.e. the ones not passed in query string
+  const reviews = productFound.reviews.filter(
+    (review) => review._id.toString() !== req.query.id.toString(),
+  );
+
+  const numOfReviews = reviews.length;
+
+  const ratings = productFound.reviews.reduce((acc, item) => item.rating + acc, 0)
+    / reviews.length;
+  await Product.findByIdAndUpdate(
+    req.query.productId,
+    {
+      reviews,
+      ratings,
+      numOfReviews,
+    },
+    { new: true, runValidators: true, useFindAndModify: false },
+  );
+  res.status(StatusCodes.OK).json({
+    success: true,
+  });
+});
+
 // exports.deleteProduct = async (req, res) => {
 //   try {
 //     const productFound = await Product.findById(req.params.productId);
