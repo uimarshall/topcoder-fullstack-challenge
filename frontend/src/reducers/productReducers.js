@@ -3,14 +3,14 @@ import {
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAILURE,
   CLEAR_ERRORS,
-} from './actions/actionTypes';
+} from '../actions/actionTypes';
 
 const initialState = {
   products: [],
   loading: false,
 };
 
-export const productReducer = (state = initialState, action) => {
+export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_PRODUCTS_REQUEST:
       return { loading: true, products: [] };
@@ -18,7 +18,7 @@ export const productReducer = (state = initialState, action) => {
     case ALL_PRODUCTS_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products,
+        products: action.payload.products, //we get the products here on success
         productsCount: action.payload.productsCount,
       };
     case ALL_PRODUCTS_FAILURE:
