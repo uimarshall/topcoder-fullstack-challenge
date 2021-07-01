@@ -13,7 +13,7 @@ const Banner = () => {
                   className="img-fluid"
                   src="assets/img/gallery/her.png"
                   width="790"
-                  alt="..."
+                  alt="product"
                 />
                 <div className="card-img-overlay d-flex flex-center">
                   {' '}
@@ -30,7 +30,7 @@ const Banner = () => {
                   className="img-fluid"
                   src="assets/img/gallery/him.png"
                   width="790"
-                  alt="..."
+                  alt="product"
                 />
                 <div className="card-img-overlay d-flex flex-center">
                   {' '}
