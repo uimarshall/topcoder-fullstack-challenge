@@ -32,7 +32,7 @@
     "eslintfix": "npx eslint --fix .",
     "lintfix": "npm run stylelintfix && npm run eslintfix"
   },
-  "proxy": "https://localhost:5000",
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",

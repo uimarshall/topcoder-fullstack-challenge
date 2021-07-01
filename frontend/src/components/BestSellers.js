@@ -1,21 +1,18 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
-import ProductHeader from './ProductHeader';
-import ViewAll from './ViewAll';
 
-const ProductDisplay = () => {
+const BestSellers = () => {
   return (
     <>
-      <section className="py-0">
+      <section>
         <div className="container">
           <div className="row h-100">
-            {/* Header */}
-            <ProductHeader title="popular deals" />
-
+            <div className="col-lg-7 mx-auto text-center mb-6">
+              <h5 className="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Best Sellers</h5>
+            </div>
             <div className="col-12">
               <div
                 className="carousel slide"
-                id="carouselBestDeals"
+                id="carouselBestSellers"
                 data-bs-touch="false"
                 data-bs-interval="false"
               >
@@ -25,89 +22,89 @@ const ProductDisplay = () => {
                     data-bs-interval="10000"
                   >
                     <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
+                            src="assets/img/gallery/handbag.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
+                              Marie Claire Handbag
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $399
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$365</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
+                            src="assets/img/gallery/earrings.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
+                              Red Gem Earrings
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $489
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$466</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
+                            src="assets/img/gallery/lathered-wristwatch.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
+                              Black Leathered Wristwatch
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $799
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$745</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
+                            src="assets/img/gallery/tie.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
+                              Red-White Stripped Tie
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $299
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$243</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
@@ -117,89 +114,89 @@ const ProductDisplay = () => {
                   </div>
                   <div className="carousel-item" data-bs-interval="5000">
                     <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
+                            src="assets/img/gallery/handbag.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
+                              Marie Claire Handbag
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $399
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$365</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
+                            src="assets/img/gallery/earrings.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
+                              Red Gem Earrings
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $489
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$466</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
+                            src="assets/img/gallery/lathered-wristwatch.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
+                              Black Leathered Wristwatch
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $799
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$745</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
+                            src="assets/img/gallery/tie.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
+                              Red-White Stripped Tie
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $299
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$243</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
@@ -209,89 +206,89 @@ const ProductDisplay = () => {
                   </div>
                   <div className="carousel-item" data-bs-interval="3000">
                     <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
+                            src="assets/img/gallery/handbag.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
+                              Marie Claire Handbag
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $399
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$365</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
+                            src="assets/img/gallery/earrings.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
+                              Red Gem Earrings
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $489
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$466</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
+                            src="assets/img/gallery/lathered-wristwatch.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
+                              Black Leathered Wristwatch
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $799
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$745</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
+                            src="assets/img/gallery/tie.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
+                              Red-White Stripped Tie
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $299
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$243</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
@@ -301,89 +298,89 @@ const ProductDisplay = () => {
                   </div>
                   <div className="carousel-item">
                     <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
+                            src="assets/img/gallery/handbag.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
+                              Marie Claire Handbag
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $399
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$365</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
+                            src="assets/img/gallery/earrings.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
+                              Red Gem Earrings
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $489
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$466</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
+                            src="assets/img/gallery/lathered-wristwatch.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
+                              Black Leathered Wristwatch
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $799
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$745</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
                         </div>
                       </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                      <div className="col-md-3 mb-3 mb-md-0 h-100">
                         <div className="card card-span h-100 text-white">
                           <img
                             className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
+                            src="assets/img/gallery/tie.png"
                             alt="product"
                           />
                           <div className="card-img-overlay ps-0"> </div>
                           <div className="card-body ps-0 bg-200">
                             <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
+                              Red-White Stripped Tie
                             </h5>
                             <div className="fw-bold">
                               <span className="text-600 me-2 text-decoration-line-through">
-                                $200
+                                $299
                               </span>
-                              <span className="text-primary">$175</span>
+                              <span className="text-danger">$243</span>
                             </div>
                           </div>
                           <a className="stretched-link" href="!#"></a>
@@ -395,7 +392,7 @@ const ProductDisplay = () => {
                     <button
                       className="carousel-control-prev"
                       type="button"
-                      data-bs-target="#carouselBestDeals"
+                      data-bs-target="#carouselBestSellers"
                       data-bs-slide="prev"
                     >
                       <span
@@ -407,7 +404,7 @@ const ProductDisplay = () => {
                     <button
                       className="carousel-control-next"
                       type="button"
-                      data-bs-target="#carouselBestDeals"
+                      data-bs-target="#carouselBestSellers"
                       data-bs-slide="next"
                     >
                       <span
@@ -420,8 +417,6 @@ const ProductDisplay = () => {
                 </div>
               </div>
             </div>
-            {/* View All */}
-            <ViewAll />
           </div>
         </div>
       </section>
@@ -429,4 +424,4 @@ const ProductDisplay = () => {
   );
 };
 
-export default ProductDisplay;
+export default BestSellers;
