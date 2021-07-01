@@ -6,6 +6,7 @@ import MetaData from './layout/MetaData';
 
 const Home = () => {
   const dispatch = useDispatch();
+  // Map redux state to props of Home component
   const { loading, products, error, productsCount } = useSelector(
     (state) => state.products
   );
