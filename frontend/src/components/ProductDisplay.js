@@ -1,430 +1,51 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React from 'react';
-import ProductHeader from './ProductHeader';
-import ViewAll from './ViewAll';
-
-const ProductDisplay = () => {
+import { Link } from 'react-router-dom';
+const ProductDisplay = ({ product }) => {
   return (
     <>
-      <section className="py-0">
-        <div className="container">
-          <div className="row h-100">
-            {/* Header */}
-            <ProductHeader title="popular deals" />
+      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+        <div className="card card-span h-100 text-white">
+          <img
+            className="img-fluid h-100"
+            src={product.images[0].url}
+            alt="product"
+          />
+          {/* <img
+            className="img-fluid h-100"
+            src="assets/img/gallery/flat-hill.png"
+            alt="product"
+          /> */}
+          <div className="card-img-overlay ps-0"> </div>
+          <div className="card-body ps-0 bg-200">
+            <h5 className="fw-bold text-1000 text-truncate">
+              {/* Flat Hill Slingback */}
 
-            <div className="col-12">
-              <div
-                className="carousel slide"
-                id="carouselBestDeals"
-                data-bs-touch="false"
-                data-bs-interval="false"
-              >
-                <div className="carousel-inner">
-                  <div
-                    className="carousel-item active"
-                    data-bs-interval="10000"
-                  >
-                    <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="carousel-item" data-bs-interval="5000">
-                    <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="carousel-item" data-bs-interval="3000">
-                    <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="row h-100 align-items-center g-2">
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/flat-hill.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Flat Hill Slingback
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/blue-ring.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Ocean Blue Ring
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wallet.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Brown Leathered Wallet
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                        <div className="card card-span h-100 text-white">
-                          <img
-                            className="img-fluid h-100"
-                            src="assets/img/gallery/wrist-watch.png"
-                            alt="product"
-                          />
-                          <div className="card-img-overlay ps-0"> </div>
-                          <div className="card-body ps-0 bg-200">
-                            <h5 className="fw-bold text-1000 text-truncate">
-                              Silverside Wristwatch
-                            </h5>
-                            <div className="fw-bold">
-                              <span className="text-600 me-2 text-decoration-line-through">
-                                $200
-                              </span>
-                              <span className="text-primary">$175</span>
-                            </div>
-                          </div>
-                          <a className="stretched-link" href="!#"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <button
-                      className="carousel-control-prev"
-                      type="button"
-                      data-bs-target="#carouselBestDeals"
-                      data-bs-slide="prev"
-                    >
-                      <span
-                        className="carousel-control-prev-icon"
-                        aria-hidden="true"
-                      ></span>
-                      <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                      className="carousel-control-next"
-                      type="button"
-                      data-bs-target="#carouselBestDeals"
-                      data-bs-slide="next"
-                    >
-                      <span
-                        className="carousel-control-next-icon"
-                        aria-hidden="true"
-                      ></span>
-                      <span className="visually-hidden">Next </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <Link to={`/${product._id}`}>{product.name}</Link>
+            </h5>
+            <div className="fw-bold">
+              <span className="text-600 me-2 text-decoration-line-through">
+                $200
+              </span>
+              <span className="text-primary price">${product.price}</span>
             </div>
-            {/* View All */}
-            <ViewAll />
           </div>
+          <div className="ratings mt-auto">
+            <div className="rating-outer">
+              <div
+                className="rating-inner"
+                style={{
+                  width: `${(product.ratings / 5) * 100}%`,
+                }}
+              ></div>
+            </div>
+            <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
+          </div>
+          {/* <a className="stretched-link" href="!#"></a> */}
+          <Link className="" to={`/${product._id}`}>
+            View Details
+          </Link>
         </div>
-      </section>
+      </div>
     </>
   );
 };
