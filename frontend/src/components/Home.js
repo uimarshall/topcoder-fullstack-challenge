@@ -2,6 +2,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productActions';
+
+import ProductHeader from './ProductHeader';
+import ViewAll from './ViewAll';
+
 import Banner from './Banner';
 import LandingText from './LandingText';
 import Navbar from './Navbar';
@@ -18,6 +22,7 @@ import Varieties from './Varieties';
 import FashionForYou from './FashionForYou';
 import TrendingNow from './TrendingNow';
 import Outlets from './Outlets';
+import Loader from './shared/Loader';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -30,44 +35,114 @@ const Home = () => {
   }, [dispatch]);
   return (
     <div>
-      <MetaData title={'Buy affordable and quality products online'} />
-      <main className="main" id="top">
-        <Navbar />
-        <section className="py-11 bg-light-gradient border-bottom border-white border-5">
-          {/* Section Bg Image */}
-          <SectionBgImage />
-          {/* Landing Text */}
-          <LandingText />
-        </section>
-        {/* Banner */}
-        <Banner />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {' '}
+          <MetaData title={'Buy affordable and quality products online'} />
+          <main className="main" id="top">
+            <Navbar />
+            <section className="py-11 bg-light-gradient border-bottom border-white border-5">
+              {/* Section Bg Image */}
+              <SectionBgImage />
+              {/* Landing Text */}
+              <LandingText />
+            </section>
+            {/* Banner */}
+            <Banner />
 
-        {/* Product Display */}
-        <ProductDisplay />
-        {/* Exclusive Deals */}
-        <ExclusiveDeals />
-        {/* New Arrivals */}
-        <NewArrivals />
+            {/* Product Display */}
+            <section className="py-0">
+              <div className="container">
+                <div className="row h-100">
+                  {/* Header */}
+                  <ProductHeader title="popular deals" />
 
-        {/* Shop by category */}
-        <ShopByCat />
+                  <div className="col-12">
+                    <div
+                      className="carousel slide"
+                      id="carouselBestDeals"
+                      data-bs-touch="false"
+                      data-bs-interval="false"
+                    >
+                      <div className="carousel-inner">
+                        <div
+                          className="carousel-item active"
+                          data-bs-interval="10000"
+                        >
+                          <div className="row h-100 align-items-center g-2">
+                            {products &&
+                              products.map((product) => (
+                                <ProductDisplay
+                                  key={product._id}
+                                  product={product}
+                                />
+                              ))}
+                          </div>
+                        </div>
 
-        {/* Collections */}
-        <Collections />
-        {/* Best sellers */}
-        <BestSellers />
-        {/* Varieties */}
-        <Varieties />
+                        <div className="row">
+                          <button
+                            className="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#carouselBestDeals"
+                            data-bs-slide="prev"
+                          >
+                            <span
+                              className="carousel-control-prev-icon"
+                              aria-hidden="true"
+                            ></span>
+                            <span className="visually-hidden">Previous</span>
+                          </button>
+                          <button
+                            className="carousel-control-next"
+                            type="button"
+                            data-bs-target="#carouselBestDeals"
+                            data-bs-slide="next"
+                          >
+                            <span
+                              className="carousel-control-next-icon"
+                              aria-hidden="true"
+                            ></span>
+                            <span className="visually-hidden">Next </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* View All */}
+                  <ViewAll />
+                </div>
+              </div>
+            </section>
 
-        {/* Fashion for you */}
-        <FashionForYou />
-        {/* Trending */}
-        <TrendingNow />
+            {/* Exclusive Deals */}
+            <ExclusiveDeals />
+            {/* New Arrivals */}
+            <NewArrivals />
 
-        {/* Outlets */}
+            {/* Shop by category */}
+            <ShopByCat />
 
-        <Outlets />
-      </main>
+            {/* Collections */}
+            <Collections />
+            {/* Best sellers */}
+            <BestSellers />
+            {/* Varieties */}
+            <Varieties />
+
+            {/* Fashion for you */}
+            <FashionForYou />
+            {/* Trending */}
+            <TrendingNow />
+
+            {/* Outlets */}
+
+            <Outlets />
+          </main>
+        </>
+      )}
     </div>
   );
 };
