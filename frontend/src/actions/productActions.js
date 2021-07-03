@@ -4,6 +4,9 @@ import {
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAILURE,
   CLEAR_ERRORS,
+  GET_PRODUCT_DETAILS,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAILURE,
 } from './actionTypes';
 
 export const getProducts = () => async (dispatch) => {
@@ -20,6 +23,25 @@ export const getProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ALL_PRODUCTS_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_PRODUCT_DETAILS,
+    });
+    const { data } = await axios.get(`/api/v1/products/:${id}`);
+    console.log(data);
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAILURE,
       payload: error.response.data.message,
     });
   }
