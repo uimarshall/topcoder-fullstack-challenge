@@ -22,6 +22,7 @@ import Varieties from './Varieties';
 import FashionForYou from './FashionForYou';
 import TrendingNow from './TrendingNow';
 import Outlets from './Outlets';
+import Loader from './shared/Loader';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Home = () => {
   return (
     <div>
       {loading ? (
-        <h1>loading....</h1>
+        <Loader />
       ) : (
         <>
           {' '}
