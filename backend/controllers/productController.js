@@ -50,7 +50,8 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 // @access: public
 // Product.find() = query
 // req.query = queryStr
-exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+  // return next(new ErrorHandler('Errorful', 400));
   const resPerPage = 8;
   // Count total number of documents in the Db
   const productsCount = await Product.countDocuments();

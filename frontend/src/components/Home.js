@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 import { getProducts } from '../actions/productActions';
 
 import ProductHeader from './ProductHeader';
@@ -26,13 +27,18 @@ import Loader from './shared/Loader';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const alert = useAlert();
   // Map redux state to props of Home component
   const { loading, products, error, productsCount } = useSelector(
     (state) => state.products
   );
   useEffect(() => {
+    if (error) {
+      // alert.success('success');
+      return alert.error(error);
+    }
     dispatch(getProducts());
-  }, [dispatch]);
+  }, [dispatch, alert, error]);
   return (
     <div>
       {loading ? (
