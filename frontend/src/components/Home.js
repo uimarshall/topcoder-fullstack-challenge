@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import Pagination from 'react-js-pagination';
 import { getProducts } from '../actions/productActions';
 
 import ProductHeader from './ProductHeader';
@@ -29,16 +30,21 @@ const Home = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   // Map redux state to props of Home component
-  const { loading, products, error, productsCount } = useSelector(
+  const { loading, products, error, resPerPage, productsCount } = useSelector(
     (state) => state.products
   );
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     if (error) {
       // alert.success('success');
       return alert.error(error);
     }
-    dispatch(getProducts());
-  }, [dispatch, alert, error]);
+    dispatch(getProducts(currentPage));
+  }, [dispatch, alert, error, currentPage]);
+
+  function handlePageChangeNo(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
   return (
     <div>
       {loading ? (
@@ -66,55 +72,11 @@ const Home = () => {
                   <ProductHeader title="popular deals" />
 
                   <div className="col-12">
-                    <div
-                      className="carousel slide"
-                      id="carouselBestDeals"
-                      data-bs-touch="false"
-                      data-bs-interval="false"
-                    >
-                      <div className="carousel-inner">
-                        <div
-                          className="carousel-item active"
-                          data-bs-interval="10000"
-                        >
-                          <div className="row h-100 align-items-center g-2">
-                            {products &&
-                              products.map((product) => (
-                                <ProductDisplay
-                                  key={product._id}
-                                  product={product}
-                                />
-                              ))}
-                          </div>
-                        </div>
-
-                        <div className="row">
-                          <button
-                            className="carousel-control-prev"
-                            type="button"
-                            data-bs-target="#carouselBestDeals"
-                            data-bs-slide="prev"
-                          >
-                            <span
-                              className="carousel-control-prev-icon"
-                              aria-hidden="true"
-                            ></span>
-                            <span className="visually-hidden">Previous</span>
-                          </button>
-                          <button
-                            className="carousel-control-next"
-                            type="button"
-                            data-bs-target="#carouselBestDeals"
-                            data-bs-slide="next"
-                          >
-                            <span
-                              className="carousel-control-next-icon"
-                              aria-hidden="true"
-                            ></span>
-                            <span className="visually-hidden">Next </span>
-                          </button>
-                        </div>
-                      </div>
+                    <div className="row h-100 align-items-center g-2">
+                      {products &&
+                        products.map((product) => (
+                          <ProductDisplay key={product._id} product={product} />
+                        ))}
                     </div>
                   </div>
                   {/* View All */}
@@ -122,6 +84,23 @@ const Home = () => {
                 </div>
               </div>
             </section>
+            <div className="d-flex justify-content-center mt-5">
+              {resPerPage <= productsCount && (
+                <Pagination
+                  activePage={currentPage} //current page where the user is.
+                  itemsCountPerPage={resPerPage}
+                  totalItemsCount={productsCount}
+                  // pageRangeDisplayed={5}
+                  onChange={handlePageChangeNo}
+                  nextPageText={'Next'}
+                  prevPageText={'Prev'}
+                  firstPageText={'First'}
+                  lastPageText={'Last'}
+                  itemClass="page-item" //bs classes
+                  linkClass="page-link"
+                />
+              )}
+            </div>
 
             {/* Exclusive Deals */}
             <ExclusiveDeals />

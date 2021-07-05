@@ -69,6 +69,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     return res.status(StatusCodes.OK).json({
       count: productsFound.length,
       productsCount,
+      resPerPage,
       data: productsFound,
       message: SUCCESS,
     });
