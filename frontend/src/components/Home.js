@@ -10,7 +10,7 @@ import ViewAll from './ViewAll';
 import Banner from './Banner';
 import LandingText from './LandingText';
 import Navbar from './Navbar';
-import ProductDisplay from './ProductDisplay';
+import ProductDisplay from './products/ProductDisplay';
 import SectionBgImage from '../SectionBgImage';
 
 import MetaData from './layout/MetaData';
