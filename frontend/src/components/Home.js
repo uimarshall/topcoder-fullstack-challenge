@@ -26,21 +26,23 @@ import TrendingNow from './TrendingNow';
 import Outlets from './Outlets';
 import Loader from './shared/Loader';
 
-const Home = () => {
+const Home = ({ match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
   // Map redux state to props of Home component
   const { loading, products, error, resPerPage, productsCount } = useSelector(
     (state) => state.products
   );
+
+  const keyword = match.params.keyword;
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     if (error) {
       // alert.success('success');
       return alert.error(error);
     }
-    dispatch(getProducts(currentPage));
-  }, [dispatch, alert, error, currentPage]);
+    dispatch(getProducts(currentPage, keyword));
+  }, [dispatch, alert, error, currentPage, keyword]);
 
   function handlePageChangeNo(pageNumber) {
     setCurrentPage(pageNumber);

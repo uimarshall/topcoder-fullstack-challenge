@@ -1,9 +1,11 @@
 import React from 'react';
+import Search from './Search';
+import { Route } from 'react-router-dom';
 
 const Header = () => {
   return (
     <>
-      <h1>Header</h1>
+      <Route render={({ history }) => <Search history={history} />} />
     </>
   );
 };

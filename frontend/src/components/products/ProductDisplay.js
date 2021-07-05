@@ -20,7 +20,7 @@ const ProductDisplay = ({ product }) => {
             <h5 className="fw-bold text-1000 text-truncate">
               {/* Flat Hill Slingback */}
 
-              <Link to={`/${product._id}`}>{product.name}</Link>
+              <Link to={`/product/${product._id}`}>{product.name}</Link>
             </h5>
             <div className="fw-bold">
               <span className="text-600 me-2 text-decoration-line-through">
@@ -41,7 +41,7 @@ const ProductDisplay = ({ product }) => {
             <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
           </div>
           {/* <a className="stretched-link" href="!#"></a> */}
-          <Link className="" to={`/${product._id}`}>
+          <Link className="" to={`/product/${product._id}`}>
             View Details
           </Link>
         </div>
