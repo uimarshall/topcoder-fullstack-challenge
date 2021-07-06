@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import Pagination from 'react-js-pagination';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { getProducts } from '../actions/productActions';
 
 import ProductHeader from './ProductHeader';
@@ -26,7 +28,12 @@ import TrendingNow from './TrendingNow';
 import Outlets from './Outlets';
 import Loader from './shared/Loader';
 
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
+
 const Home = ({ match }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([1, 1000]);
   const dispatch = useDispatch();
   const alert = useAlert();
   // Map redux state to props of Home component
@@ -35,14 +42,14 @@ const Home = ({ match }) => {
   );
 
   const keyword = match.params.keyword;
-  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     if (error) {
       // alert.success('success');
       return alert.error(error);
     }
-    dispatch(getProducts(currentPage, keyword));
-  }, [dispatch, alert, error, currentPage, keyword]);
+    dispatch(getProducts(currentPage, keyword, price));
+  }, [dispatch, alert, error, currentPage, keyword, price]);
 
   function handlePageChangeNo(pageNumber) {
     setCurrentPage(pageNumber);
@@ -56,7 +63,7 @@ const Home = ({ match }) => {
           {' '}
           <MetaData title={'Buy affordable and quality products online'} />
           <main className="main" id="top">
-            <Navbar />
+            {/* <Navbar /> */}
             <section className="py-11 bg-light-gradient border-bottom border-white border-5">
               {/* Section Bg Image */}
               <SectionBgImage />
@@ -75,10 +82,46 @@ const Home = ({ match }) => {
 
                   <div className="col-12">
                     <div className="row h-100 align-items-center g-2">
-                      {products &&
+                      {keyword ? (
+                        <>
+                          <div className="col-6 col-md-3 mt-5 mb-5">
+                            <div className="px-5">
+                              <Range
+                                marks={{
+                                  1: `$1`,
+                                  1000: `$1000`,
+                                }}
+                                min={1}
+                                max={1000}
+                                defaultValue={[1, 1000]}
+                                tipFormatter={(value) => `$${value}`}
+                                tipProps={{
+                                  placement: 'top',
+                                  visible: true,
+                                }}
+                                value={price}
+                                onChange={(price) => setPrice(price)}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-6 col-md-9">
+                            <div className="row">
+                              {products.map((product) => (
+                                <ProductDisplay
+                                  key={product._id}
+                                  product={product}
+                                  col={4}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        products &&
                         products.map((product) => (
                           <ProductDisplay key={product._id} product={product} />
-                        ))}
+                        ))
+                      )}
                     </div>
                   </div>
                   {/* View All */}
