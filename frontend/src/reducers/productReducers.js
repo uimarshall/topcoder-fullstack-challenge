@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   products: [],
-  product: {},
+
   loading: false,
 };
 
@@ -25,6 +25,7 @@ export const productsReducer = (state = initialState, action) => {
         products: action.payload.data, //we get the products here on success
         productsCount: action.payload.productsCount,
         resPerPage: action.payload.resPerPage,
+        filteredProductsCount: action.payload.filteredProductsCount,
       };
     case ALL_PRODUCTS_FAILURE:
       return {
@@ -43,7 +44,7 @@ export const productsReducer = (state = initialState, action) => {
 };
 
 export const productDetailReducer = (
-  state = initialState,
+  state = { product: {} },
   { type, payload }
 ) => {
   switch (type) {

@@ -57,23 +57,35 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const productsCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resPerPage);
-  await apiFeatures.query.exec((err, productsFound) => {
-    if (err) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: getReasonPhrase(StatusCodes.NOT_FOUND),
-        status: FAIL,
-      });
-    }
-    return res.status(StatusCodes.OK).json({
-      count: productsFound.length,
-      productsCount,
-      resPerPage,
-      data: productsFound,
-      message: SUCCESS,
-    });
+    .filter();
+  let productsFound = await apiFeatures.query;
+  let filteredProductsCount = productsFound.length;
+  apiFeatures.pagination(resPerPage);
+  productsFound = await apiFeatures.query;
+
+  res.status(StatusCodes.OK).json({
+    count: productsFound.length,
+    productsCount,
+    resPerPage,
+    filteredProductsCount,
+    data: productsFound,
+    message: SUCCESS,
   });
+  // await apiFeatures.query.exec((err, productsFound) => {
+  //   if (err) {
+  //     return res.status(StatusCodes.NOT_FOUND).json({
+  //       message: getReasonPhrase(StatusCodes.NOT_FOUND),
+  //       status: FAIL,
+  //     });
+  //   }
+  //   return res.status(StatusCodes.OK).json({
+  //     count: productsFound.length,
+  //     productsCount,
+  //     resPerPage,
+  //     data: productsFound,
+  //     message: SUCCESS,
+  //   });
+  // });
 });
 
 // exports.getAllProducts = async (req, res) => {

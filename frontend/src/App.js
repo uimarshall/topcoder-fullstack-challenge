@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
-// import Header from './components/layout/Header';
+import Header from './components/layout/Header';
 
 import Footer from './components/layout/Footer';
 
@@ -12,10 +12,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Header /> */}
+        <Header />
 
         <Route path="/" exact component={Home}></Route>
-        <Route path="/:productId" exact component={ProductDetails}></Route>
+        <Route path="/search/:keyword" component={Home}></Route>
+        <Route
+          path="/product/:productId"
+          exact
+          component={ProductDetails}
+        ></Route>
 
         <Footer />
       </div>
