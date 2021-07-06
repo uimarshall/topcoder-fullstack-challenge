@@ -34,12 +34,33 @@ const Range = createSliderWithTooltip(Slider.Range);
 const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
+  const [category, setCategory] = useState('');
+  const categories = [
+    'Electronics',
+    'Cameras',
+    'Laptops',
+    'Accessories',
+    'Headphones',
+    'Food',
+    'Books',
+    'Clothes/Shoes',
+    'Beauty/Health',
+    'Sports',
+    'Home',
+    'Outdoor',
+    'Decorations',
+  ];
   const dispatch = useDispatch();
   const alert = useAlert();
   // Map redux state to props of Home component
-  const { loading, products, error, resPerPage, productsCount } = useSelector(
-    (state) => state.products
-  );
+  const {
+    loading,
+    products,
+    error,
+    resPerPage,
+    productsCount,
+    filteredProductsCount,
+  } = useSelector((state) => state.products);
 
   const keyword = match.params.keyword;
 
@@ -48,11 +69,16 @@ const Home = ({ match }) => {
       // alert.success('success');
       return alert.error(error);
     }
-    dispatch(getProducts(currentPage, keyword, price));
-  }, [dispatch, alert, error, currentPage, keyword, price]);
+    dispatch(getProducts(currentPage, keyword, price, category));
+  }, [dispatch, alert, error, currentPage, keyword, price, category]);
 
   function handlePageChangeNo(pageNumber) {
     setCurrentPage(pageNumber);
+  }
+
+  let count = productsCount;
+  if (keyword) {
+    count = filteredProductsCount;
   }
   return (
     <div>
@@ -102,6 +128,27 @@ const Home = ({ match }) => {
                                 value={price}
                                 onChange={(price) => setPrice(price)}
                               />
+
+                              <hr className="my-5" />
+
+                              <div className="mt-5">
+                                <h4 className="mb-3">Categories</h4>
+
+                                <ul className="pl-0">
+                                  {categories.map((category) => (
+                                    <li
+                                      style={{
+                                        cursor: 'pointer',
+                                        listStyleType: 'none',
+                                      }}
+                                      key={category}
+                                      onClick={() => setCategory(category)}
+                                    >
+                                      {category}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
                             </div>
                           </div>
                           <div className="col-6 col-md-9">
@@ -130,7 +177,7 @@ const Home = ({ match }) => {
               </div>
             </section>
             <div className="d-flex justify-content-center mt-5">
-              {resPerPage <= productsCount && (
+              {resPerPage <= count && (
                 <Pagination
                   activePage={currentPage} //current page where the user is.
                   itemsCountPerPage={resPerPage}
