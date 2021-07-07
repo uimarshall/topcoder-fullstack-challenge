@@ -5,6 +5,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   CLEAR_ERRORS,
+  SIGN_UP_USER_REQUEST,
+  SIGN_UP_USER_SUCCESS,
+  SIGN_UP_USER_FAILURE,
 } from './actionTypes';
 
 // Login
@@ -31,6 +34,35 @@ export const loginUser = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Register User
+export const registerUser = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: SIGN_UP_USER_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data', //multipart/form-data bc we need to pass in other things like avatar.
+      },
+    };
+
+    const { data } = await axios.post(
+      '/api/v1/users/register',
+      userData, //send along the email and password received from forms
+      config
+    );
+
+    dispatch({
+      type: SIGN_UP_USER_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: SIGN_UP_USER_FAILURE,
       payload: error.response.data.message,
     });
   }

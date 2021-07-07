@@ -3,6 +3,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   CLEAR_ERRORS,
+  SIGN_UP_USER_REQUEST,
+  SIGN_UP_USER_SUCCESS,
+  SIGN_UP_USER_FAILURE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -14,10 +17,13 @@ const initialState = {
 export const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOGIN_REQUEST:
+    case SIGN_UP_USER_REQUEST:
       return { loading: true, isAuthenticated: false };
     case LOGIN_SUCCESS:
+    case SIGN_UP_USER_SUCCESS:
       return { ...state, loading: false, isAuthenticated: true, user: payload };
     case LOGIN_FAILURE:
+    case SIGN_UP_USER_FAILURE:
       return {
         ...state,
         loading: false,
