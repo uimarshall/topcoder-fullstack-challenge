@@ -13,6 +13,7 @@ import Login from './components/user/Login';
 import Register from './components/user/Register';
 import store from './store';
 import { loadLoggedInUser } from './actions/userActions';
+import Profile from './components/user/Profile';
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
         ></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/register" component={Register}></Route>
+        <Route path="/me" component={Profile} exact></Route>
 
         <Footer />
       </div>
