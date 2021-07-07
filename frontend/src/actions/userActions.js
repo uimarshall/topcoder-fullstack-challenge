@@ -11,6 +11,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from './actionTypes';
 
 // Login
@@ -85,6 +87,22 @@ export const registerUser = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SIGN_UP_USER_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Logout user
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await axios.get('/api/v1/users/logout');
+
+    dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGOUT_FAILURE,
       payload: error.response.data.message,
     });
   }

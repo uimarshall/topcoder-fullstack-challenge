@@ -9,6 +9,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -29,11 +31,24 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case LOAD_USER_SUCCESS:
       return { ...state, loading: false, isAuthenticated: true, user: payload };
 
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        isAuthenticated: false,
+        user: null,
+      };
+
     case LOAD_USER_FAILURE:
       return {
         loading: false,
         isAuthenticated: false,
         user: null,
+        error: payload,
+      };
+
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
         error: payload,
       };
 

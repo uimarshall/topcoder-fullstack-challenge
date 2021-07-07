@@ -4,6 +4,7 @@ import { useAlert } from 'react-alert';
 import { Route, Link } from 'react-router-dom';
 import SearchField from './SearchField';
 import './MenuBar.css';
+import { logoutUser } from '../../actions/userActions';
 
 const MenuBar = () => {
   const alert = useAlert();
@@ -13,7 +14,7 @@ const MenuBar = () => {
   // const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = () => {
-    // dispatch(logout());
+    dispatch(logoutUser());
     alert.success('Logged out successfully.');
   };
   return (
