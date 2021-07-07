@@ -14,6 +14,7 @@ import Register from './components/user/Register';
 import store from './store';
 import { loadLoggedInUser } from './actions/userActions';
 import Profile from './components/user/Profile';
+import ProtectedRoute from './components/route/ProtectedRoute';
 
 function App() {
   useEffect(() => {
@@ -24,16 +25,12 @@ function App() {
       <div className="App">
         <MenuBar />
 
-        <Route path="/" exact component={Home}></Route>
-        <Route path="/search/:keyword" component={Home}></Route>
-        <Route
-          path="/product/:productId"
-          exact
-          component={ProductDetails}
-        ></Route>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={Register}></Route>
-        <Route path="/me" component={Profile} exact></Route>
+        <Route path="/" exact component={Home} />
+        <Route path="/search/:keyword" component={Home} />
+        <Route path="/product/:productId" exact component={ProductDetails} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <ProtectedRoute path="/me" component={Profile} exact />
 
         <Footer />
       </div>
