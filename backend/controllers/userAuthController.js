@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 const crypto = require('crypto');
+const cloudinary = require('cloudinary').v2;
 
 /* eslint-disable consistent-return */
 const HttpStatus = require('http-status-codes');
@@ -13,20 +14,24 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
-const {
-  ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode,
-} = HttpStatus;
+const { ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode } =
+  HttpStatus;
 
 // @desc: Register a new user
 // @route: /api/v1/users/register
 // @access: protected
 exports.registerUser = catchAsyncErrors(async (req, res) => {
+  const result = await cloudinary.uploader.upload(req.body.avatar, {
+    folder: 'avatars',
+    width: 150,
+    crop: 'scale',
+  });
   const { name, email, password } = req.body;
   const newUser = await User.create({
     name,
     email,
     password,
-    avatar: { public_id: 'https/avatar.png', url: 'https/avatar' },
+    avatar: { public_id: result.public_id, url: result.secure_url },
   });
 
   sendToken(newUser, 200, res);
@@ -117,7 +122,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   // Create reset password url
   // req.protocol=https or http
   const resetUrl = `${req.protocol}://${req.get(
-    'host',
+    'host'
   )}/api/v1/users/password/reset/${resetToken}`;
 
   // Message to user
@@ -160,7 +165,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   if (!userFound) {
     return next(
-      new ErrorHandler('Password reset token is invalid or has expired', 400),
+      new ErrorHandler('Password reset token is invalid or has expired', 400)
     );
   }
 
@@ -256,7 +261,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const userFound = await User.findById(req.params.id);
   if (!userFound) {
     return next(
-      new ErrorHandler(`User is not found with this id: ${req.params.id}`),
+      new ErrorHandler(`User is not found with this id: ${req.params.id}`)
     );
   }
 
@@ -293,7 +298,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const userFound = await User.findById(req.params.id);
   if (!userFound) {
     return next(
-      new ErrorHandler(`User is not found with this id: ${req.params.id}`),
+      new ErrorHandler(`User is not found with this id: ${req.params.id}`)
     );
   }
 
