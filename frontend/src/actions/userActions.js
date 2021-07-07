@@ -8,7 +8,7 @@ import {
 } from './actionTypes';
 
 // Login
-export const login = (email, password) => async (dispatch) => {
+export const loginUser = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST });
 
@@ -34,4 +34,11 @@ export const login = (email, password) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
+};
+
+// Clear errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };
