@@ -49,7 +49,7 @@ const Login = ({ history }) => {
                 <div className="row justify-content-md-center h-100">
                   <div className="card-wrapper">
                     <div className="brand">
-                      <img src="img/logo.jpg" alt="logo" />
+                      <img src="assets/img/default_avatar.jpg" alt="avatar" />
                     </div>
                     <div className="card fat">
                       <div className="card-body">

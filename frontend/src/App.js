@@ -9,6 +9,7 @@ import Home from './components/Home';
 import ProductDetails from './components/products/ProductDetails';
 import MenuBar from './components/layout/MenuBar';
 import Login from './components/user/Login';
+import Register from './components/user/Register';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           exact
           component={ProductDetails}
         ></Route>
-        <Route path="/login" exact component={Login}></Route>
+        <Route path="/login" component={Login}></Route>
+        <Route path="/register" component={Register}></Route>
 
         <Footer />
       </div>

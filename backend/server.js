@@ -6,6 +6,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cloudinary = require('cloudinary').v2;
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const dotenv = require('dotenv');
 
@@ -39,7 +40,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use(cors()); // to handle request coming frm diff origins e.g.client will make req frm port 3000
+app.use(fileUpload());
 
 // cloudinary configuration
 cloudinary.config({
