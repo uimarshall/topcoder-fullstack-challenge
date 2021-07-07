@@ -1,9 +1,21 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 import { Route, Link } from 'react-router-dom';
 import SearchField from './SearchField';
 import './MenuBar.css';
 
 const MenuBar = () => {
+  const alert = useAlert();
+  const dispatch = useDispatch();
+
+  const { user, loading } = useSelector((state) => state.auth);
+  // const { cartItems } = useSelector((state) => state.cart);
+
+  const logoutHandler = () => {
+    // dispatch(logout());
+    alert.success('Logged out successfully.');
+  };
   return (
     <div>
       <div className="header-blue">
@@ -53,19 +65,81 @@ const MenuBar = () => {
               <Route
                 render={({ history }) => <SearchField history={history} />}
               />
-              <span className="navbar-text mr-2">
+              <Link to="/cart" style={{ textDecoration: 'none' }}>
                 {' '}
-                <Link to="/login" className="login">
-                  Log In
-                </Link>
-              </span>
-              <Link
-                className="btn btn-light action-button"
-                role="button"
-                to="/register"
-              >
-                Sign Up
+                <span className="mx-2" id="cart">
+                  Cart
+                </span>
+                <span className="mr-2" id="cart_count">
+                  2
+                </span>
               </Link>
+
+              {user ? (
+                <div className="ml-4 dropdown d-inline">
+                  <Link
+                    to="#!"
+                    className="btn dropdown-toggle text-white mr-4"
+                    type="button"
+                    id="dropDownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <figure className="avatar avatar-nav">
+                      <img
+                        src={user.avatar && user.avatar.url}
+                        alt={user && user.name}
+                        className="rounded-circle"
+                      />
+                    </figure>
+                    <span>{user && user.name}</span>
+                  </Link>
+
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropDownMenuButton"
+                  >
+                    {user && user.role === 'admin' && (
+                      <Link className="dropdown-item" to="/dashboard">
+                        Dashboard
+                      </Link>
+                    )}
+                    <Link className="dropdown-item" to="/orders/me">
+                      Orders
+                    </Link>
+                    <Link className="dropdown-item" to="/me">
+                      Profile
+                    </Link>
+                    <Link
+                      className="dropdown-item text-danger"
+                      to="/"
+                      onClick={logoutHandler}
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                !loading && (
+                  <>
+                    <span className="navbar-text mr-2">
+                      {' '}
+                      <Link to="/login" className="login">
+                        Log In
+                      </Link>
+                    </span>
+
+                    <Link
+                      className="btn btn-light action-button"
+                      role="button"
+                      to="/register"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )
+              )}
             </div>
           </div>
         </nav>

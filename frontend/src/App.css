@@ -91,6 +91,22 @@
   }
 }
 
+/* Cart */
+
+#cart {
+  font-size: 1rem;
+  color: white;
+}
+
+#cart_count {
+  background-color: #febd69;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  color: black;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
 /* Register/Avatar */
 
 /* Register */
@@ -115,6 +131,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Header User Profile */
+
+.avatar-nav {
+  margin-right: 0.6rem;
+  height: 2.2rem;
+  width: 2.2rem;
 }
 
 .rounded-circle {
