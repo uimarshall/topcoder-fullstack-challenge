@@ -8,6 +8,9 @@ import {
   SIGN_UP_USER_REQUEST,
   SIGN_UP_USER_SUCCESS,
   SIGN_UP_USER_FAILURE,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAILURE,
 } from './actionTypes';
 
 // Login
@@ -34,6 +37,25 @@ export const loginUser = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Load Currently Logged In User
+export const loadLoggedInUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+
+    const { data } = await axios.get('/api/v1/users/me');
+
+    dispatch({
+      type: LOAD_USER_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOAD_USER_FAILURE,
       payload: error.response.data.message,
     });
   }
