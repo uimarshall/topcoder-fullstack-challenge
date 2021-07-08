@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { productDetailReducer, productsReducer } from './productReducers';
-import { authReducer } from './userReducers';
+import { authReducer, userReducer } from './userReducers';
 
 const initialState = {
   products: [],
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   productDetails: productDetailReducer,
   auth: authReducer,
+  user: userReducer,
 });
 
 export default rootReducer;
