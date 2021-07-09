@@ -5,7 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import {
+  transitions,
+  positions,
+  types,
+  Provider as AlertProvider,
+} from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
 const options = {
@@ -15,7 +20,22 @@ const options = {
   offset: '30px',
   // you can also just use 'scale'
   transition: transitions.SCALE,
+  type: types.INFO,
+  containerStyle: {
+    zIndex: 100,
+  },
 };
+
+// Custom alert
+/*const AlertTemplate = ({ style, options, message, close }) => (
+  <div style={style} className="alert alert-bg text-danger fw-bold h5">
+    {options.type === 'info' && '!'}
+    {options.type === 'success' && ':)'}
+    {options.type === 'error' && ':('}
+    {message}
+    <button onClick={close}>X</button> 
+  </div>
+);*/
 
 ReactDOM.render(
   <React.StrictMode>

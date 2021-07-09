@@ -4,6 +4,9 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const cloudinary = require('cloudinary').v2;
+const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const dotenv = require('dotenv');
 
@@ -35,8 +38,19 @@ connectDb();
 app.use(morgan('dev'));
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use(cors()); // to handle request coming frm diff origins e.g.client will make req frm port 3000
+app.use(fileUpload());
+
+// cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
 // Routes Middleware
 
@@ -52,7 +66,7 @@ const port = process.env.PORT || 5000;
 
 const server = app.listen(port, () => {
   console.log(
-    `Server is running on port ${port} in ${process.env.NODE_ENV} mode.`,
+    `Server is running on port ${port} in ${process.env.NODE_ENV} mode.`
   );
 });
 

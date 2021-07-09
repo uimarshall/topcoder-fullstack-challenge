@@ -13,6 +13,7 @@ import ViewAll from './ViewAll';
 import Banner from './Banner';
 import LandingText from './LandingText';
 import Navbar from './Navbar';
+
 import ProductDisplay from './products/ProductDisplay';
 import SectionBgImage from '../SectionBgImage';
 
@@ -27,6 +28,7 @@ import FashionForYou from './FashionForYou';
 import TrendingNow from './TrendingNow';
 import Outlets from './Outlets';
 import Loader from './shared/Loader';
+import MenuBar from './layout/MenuBar';
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -91,6 +93,7 @@ const Home = ({ match }) => {
           <MetaData title={'Buy affordable and quality products online'} />
           <main className="main" id="top">
             {/* <Navbar /> */}
+            {/* <MenuBar /> */}
             <section className="py-11 bg-light-gradient border-bottom border-white border-5">
               {/* Section Bg Image */}
               <SectionBgImage />
