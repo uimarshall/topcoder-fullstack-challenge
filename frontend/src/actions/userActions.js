@@ -196,6 +196,35 @@ export const forgotPassword = (email) => async (dispatch) => {
   }
 };
 
+// Reset password
+export const resetPassword = (token, passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/users/password/reset/${token}`,
+      passwords,
+      config
+    );
+
+    dispatch({
+      type: NEW_PASSWORD_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PASSWORD_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Logout user
 export const logoutUser = () => async (dispatch) => {
   try {

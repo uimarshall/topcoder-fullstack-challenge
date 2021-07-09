@@ -7,7 +7,7 @@ import { forgotPassword, clearErrors } from '../../actions/userActions';
 
 import MetaData from '../layout/MetaData';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState('');
 
   const alert = useAlert();
@@ -25,6 +25,7 @@ const ForgotPassword = () => {
 
     if (message) {
       alert.success(message);
+      history.push('/');
     }
   }, [dispatch, alert, error, message]);
 
