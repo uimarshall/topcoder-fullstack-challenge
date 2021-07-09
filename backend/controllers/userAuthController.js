@@ -131,7 +131,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   try {
     await sendEmail({
       email: userFound.email,
-      subject: 'Wavin Password Recovery',
+      subject: 'Quint Password Recovery',
       message,
     });
     res.status(StatusCodes.OK).json({
