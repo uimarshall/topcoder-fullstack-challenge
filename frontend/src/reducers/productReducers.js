@@ -21,6 +21,7 @@ export const productsReducer = (state = initialState, action) => {
 
     case ALL_PRODUCTS_SUCCESS:
       return {
+        ...state,
         loading: false,
         products: action.payload.data, //we get the products here on success
         productsCount: action.payload.productsCount,

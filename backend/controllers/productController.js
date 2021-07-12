@@ -52,7 +52,7 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 // req.query = queryStr
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   // return next(new ErrorHandler('Errorful', 400));
-  const resPerPage = 8;
+  const resPerPage = 4;
   // Count total number of documents in the Db
   const productsCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
@@ -62,6 +62,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   let filteredProductsCount = productsFound.length;
   apiFeatures.pagination(resPerPage);
   productsFound = await apiFeatures.query;
+  console.log(productsFound);
 
   res.status(StatusCodes.OK).json({
     count: productsFound.length,
