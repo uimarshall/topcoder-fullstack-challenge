@@ -20,6 +20,7 @@ import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPasswordReset from './components/user/NewPasswordReset';
 import HomePage from './components/HomePage';
+import Cart from './components/cart/Cart';
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
 
         <Route path="/" component={HomePage} exact />
         <Route path="/search/:keyword" component={HomePage} />
+        <Route path="/cart" component={Cart} exact />
         <Route path="/products/:id" component={ProductDetails} exact />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
