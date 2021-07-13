@@ -21,6 +21,7 @@ import ForgotPassword from './components/user/ForgotPassword';
 import NewPasswordReset from './components/user/NewPasswordReset';
 import HomePage from './components/HomePage';
 import Cart from './components/cart/Cart';
+import Shipping from './components/cart/Shipping';
 
 function App() {
   useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
           component={NewPasswordReset}
           exact
         />
+        <ProtectedRoute path="/shipping" component={Shipping} exact />
         <ProtectedRoute path="/me" component={Profile} exact />
         <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
         <ProtectedRoute
