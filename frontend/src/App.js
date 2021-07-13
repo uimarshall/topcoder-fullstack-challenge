@@ -6,7 +6,7 @@ import './App.css';
 
 import Footer from './components/layout/Footer';
 
-import Home from './components/Home';
+// import Home from './components/Home';
 import ProductDetails from './components/products/ProductDetails';
 import MenuBar from './components/layout/MenuBar';
 import Login from './components/user/Login';
@@ -19,6 +19,7 @@ import UpdateProfile from './components/user/UpdateProfile';
 import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPasswordReset from './components/user/NewPasswordReset';
+import HomePage from './components/HomePage';
 
 function App() {
   useEffect(() => {
@@ -29,9 +30,9 @@ function App() {
       <div className="App">
         <MenuBar />
 
-        <Route path="/" exact component={Home} />
-        <Route path="/search/:keyword" component={Home} />
-        <Route path="/product/:productId" exact component={ProductDetails} />
+        <Route path="/" component={HomePage} exact />
+        <Route path="/search/:keyword" component={HomePage} />
+        <Route path="/products/:id" component={ProductDetails} exact />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/password/forgot" component={ForgotPassword} exact />
