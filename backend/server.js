@@ -27,6 +27,7 @@ const userAuthRoute = require('./routes/api/userAuth');
 const categoryRoute = require('./routes/api/category');
 const productRoute = require('./routes/api/product');
 const orderRoute = require('./routes/api/order');
+const paymentRoute = require('./routes/api/payment');
 
 // Initialize app
 const app = express();
@@ -58,6 +59,7 @@ app.use('/api/v1/users', userAuthRoute);
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/products', productRoute);
 app.use('/api/v1', orderRoute);
+app.use('/api/v1', paymentRoute);
 
 // Custom Error Middleware to handle error
 app.use(errorMiddleware);
