@@ -35,7 +35,7 @@ const Payment = ({ history }) => {
 
   const { user } = useSelector((state) => state.auth);
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
-  // const { error } = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.newOrder);
 
   useEffect(() => {
     if (error) {
@@ -44,18 +44,18 @@ const Payment = ({ history }) => {
     }
   }, [dispatch, alert, error]);
 
-  // const order = {
-  //   orderItems: cartItems,
-  //   shippingInfo,
-  // };
+  const order = {
+    orderItems: cartItems,
+    shippingInfo,
+  };
 
-  // const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
-  // if (orderInfo) {
-  //   order.itemsPrice = orderInfo.itemsPrice;
-  //   order.shippingPrice = orderInfo.shippingPrice;
-  //   order.taxPrice = orderInfo.taxPrice;
-  //   order.totalPrice = orderInfo.totalPrice;
-  // }
+  const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
+  if (orderInfo) {
+    order.itemsPrice = orderInfo.itemsPrice;
+    order.shippingPrice = orderInfo.shippingPrice;
+    order.taxPrice = orderInfo.taxPrice;
+    order.totalPrice = orderInfo.totalPrice;
+  }
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -109,7 +109,7 @@ const Payment = ({ history }) => {
 
           history.push('/success');
         } else {
-          alert.error('There is some issue while payment processing');
+          alert.error('There are some issues while processing payment. ');
         }
       }
     } catch (error) {
