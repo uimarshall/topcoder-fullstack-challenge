@@ -70,7 +70,7 @@ function App() {
         {/* Load stripe API key from backend */}
         {stripeApiKey && (
           <Elements stripe={loadStripe(stripeApiKey)}>
-            <ProtectedRoute path="/payment" component={Payment} exact />
+            <ProtectedRoute path="/payment" component={Payment} />
           </Elements>
         )}
         <ProtectedRoute path="/me" component={Profile} exact />
