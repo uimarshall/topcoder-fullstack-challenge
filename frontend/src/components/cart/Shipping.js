@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { countries } from 'countries-list';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import MetaData from '../layout/MetaData';
 import { saveShippingInfo } from '../../actions/cartActions';
+import CheckOutSteps from './CheckOutSteps';
 
 const Shipping = ({ history }) => {
   const countriesList = Object.values(countries);
@@ -34,7 +35,7 @@ hence, we set the initial state to 'shippingInfo.address',since its already avai
     <>
       <MetaData title={'Shipping Info'} />
 
-      {/* <CheckoutSteps shipping /> */}
+      <CheckOutSteps shipping />
 
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
