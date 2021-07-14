@@ -1,5 +1,8 @@
 const express = require('express');
-const { processPayment } = require('../../controllers/paymentController');
+const {
+  processPayment,
+  sendStripApi,
+} = require('../../controllers/paymentController');
 const {
   isAuthenticated,
   isAuthorizedRoles,
@@ -9,3 +12,7 @@ const router = express.Router();
 
 // Create new payment
 router.post('/payment/process', isAuthenticated, processPayment);
+// Get/send stripe api key
+router.get('/stripeapi', isAuthenticated, sendStripApi);
+
+module.exports = router;
