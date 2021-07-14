@@ -4,7 +4,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-const initialState = {};
+// In the initialState, we have to put in all the products from the localStorage
+const initialState = {
+  cart: {
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
+    shippingInfo: localStorage.getItem('shippingInfo')
+      ? JSON.parse(localStorage.getItem('shippingInfo'))
+      : {},
+  },
+};
 
 const middleware = [thunk];
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));
