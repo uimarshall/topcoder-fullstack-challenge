@@ -28,7 +28,7 @@ hence, we set the initial state to 'shippingInfo.address',since its already avai
     e.preventDefault();
 
     dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }));
-    history.push('/confirm');
+    history.push('/order/confirm');
   };
 
   return (
