@@ -1,5 +1,13 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import store from './store';
+import axios from 'axios';
+import { loadLoggedInUser } from './actions/userActions';
+
+// Payment
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import './App.css';
 // import Header from './components/layout/Header';
@@ -11,8 +19,7 @@ import ProductDetails from './components/products/ProductDetails';
 import MenuBar from './components/layout/MenuBar';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
-import store from './store';
-import { loadLoggedInUser } from './actions/userActions';
+
 import Profile from './components/user/Profile';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import UpdateProfile from './components/user/UpdateProfile';
@@ -25,9 +32,21 @@ import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 
 function App() {
+  const [stripeApiKey, setStripeApiKey] = useState('');
   useEffect(() => {
     store.dispatch(loadLoggedInUser());
+
+    async function getStripApiKey() {
+      const { data } = await axios.get('/api/v1/stripeapi');
+
+      setStripeApiKey(data.stripeApiKey);
+    }
+
+    getStripApiKey();
   }, []);
+
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+
   return (
     <Router>
       <div className="App">
