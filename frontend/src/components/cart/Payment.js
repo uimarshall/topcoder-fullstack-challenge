@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-// import { createOrder, clearErrors } from '../../actions/orderActions';
 
 import {
   useStripe,
@@ -15,6 +14,7 @@ import {
 import axios from 'axios';
 import MetaData from '../layout/MetaData';
 import CheckOutSteps from './CheckOutSteps';
+import { createOrder, clearErrors } from '../../actions/orderActions';
 
 const options = {
   style: {
