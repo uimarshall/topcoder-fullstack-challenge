@@ -31,6 +31,7 @@ import Cart from './components/cart/Cart';
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment';
+import OrderSuccess from './components/cart/OrderSuccess';
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
@@ -67,6 +68,7 @@ function App() {
         />
         <ProtectedRoute path="/shipping" component={Shipping} exact />
         <ProtectedRoute path="/order/confirm" component={ConfirmOrder} exact />
+        <ProtectedRoute path="/success" component={OrderSuccess} />
         {/* Load stripe API key from backend */}
         {stripeApiKey && (
           <Elements stripe={loadStripe(stripeApiKey)}>
