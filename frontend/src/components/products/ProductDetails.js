@@ -3,10 +3,17 @@ import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
 
-import { getProductDetails, clearErrors } from '../../actions/productActions';
+import {
+  getProductDetails,
+  clearErrors,
+  newReview,
+} from '../../actions/productActions';
 import { addItemToCart } from '../../actions/cartActions';
 import MetaData from '../layout/MetaData';
 import Loader from '../shared/Loader';
+
+import { NEW_REVIEW_RESET } from '../../actions/actionTypes';
+import ListReviews from '../review/ListReviews';
 
 const ProductDetails = ({ match }) => {
   const [quantity, setQuantity] = useState(1);
@@ -17,6 +24,9 @@ const ProductDetails = ({ match }) => {
     (state) => state.productDetails
   );
   const { user } = useSelector((state) => state.auth);
+  const { error: reviewError, success } = useSelector(
+    (state) => state.newReview
+  );
   const alert = useAlert();
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));
@@ -24,16 +34,16 @@ const ProductDetails = ({ match }) => {
       dispatch(clearErrors());
     }
 
-    // if (reviewError) {
-    //   alert.error(reviewError);
-    //   dispatch(clearErrors());
-    // }
+    if (reviewError) {
+      alert.error(reviewError);
+      dispatch(clearErrors());
+    }
 
-    // if (success) {
-    //   alert.success('Review posted successfully');
-    //   dispatch({ type: NEW_REVIEW_RESET });
-    // }
-  }, [dispatch, alert, error, match.params.id]);
+    if (success) {
+      alert.success('Review posted successfully');
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+  }, [dispatch, alert, error, reviewError, success, match.params.id]);
 
   const addToCart = () => {
     dispatch(addItemToCart(match.params.id, quantity));
@@ -96,15 +106,15 @@ const ProductDetails = ({ match }) => {
     }
   }
 
-  // const reviewHandler = () => {
-  //   const formData = new FormData();
+  const reviewHandler = () => {
+    const formData = new FormData();
 
-  //   formData.set('rating', rating);
-  //   formData.set('comment', comment);
-  //   formData.set('productId', match.params.id);
+    formData.set('rating', rating);
+    formData.set('comment', comment);
+    formData.set('productId', match.params.id);
 
-  //   dispatch(newReview(formData));
-  // };
+    dispatch(newReview(formData));
+  };
 
   return (
     <>
@@ -264,7 +274,7 @@ const ProductDetails = ({ match }) => {
 
                           <button
                             className="btn my-3 float-right review-btn px-4 text-white"
-                            // onClick={reviewHandler}
+                            onClick={reviewHandler}
                             data-dismiss="modal"
                             aria-label="Close"
                           >
@@ -279,9 +289,9 @@ const ProductDetails = ({ match }) => {
             </div>
           </div>
 
-          {/* {product.reviews && product.reviews.length > 0 && (
+          {product.reviews && product.reviews.length > 0 && (
             <ListReviews reviews={product.reviews} />
-          )} */}
+          )}
         </>
       )}
     </>
