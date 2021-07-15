@@ -7,6 +7,10 @@ import {
   GET_PRODUCT_DETAILS,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAILURE,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_FAILURE,
+  NEW_REVIEW_RESET,
 } from './actionTypes';
 
 /*export const getProducts =
@@ -76,6 +80,35 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// New review
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_REVIEW_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/products/review`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_REVIEW_FAILURE,
       payload: error.response.data.message,
     });
   }
