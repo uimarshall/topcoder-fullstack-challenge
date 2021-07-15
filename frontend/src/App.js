@@ -34,6 +34,7 @@ import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
 import ListOrders from './components/orders/ListOrders';
 import OrderDetails from './components/orders/OrderDetails';
+import Dashboard from './components/admin/Dashborad';
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
@@ -84,6 +85,12 @@ function App() {
         <ProtectedRoute
           path="/password/update"
           component={UpdatePassword}
+          exact
+        />
+        <ProtectedRoute
+          path="/dashboard"
+          isAdmin={true}
+          component={Dashboard}
           exact
         />
         <Footer />
