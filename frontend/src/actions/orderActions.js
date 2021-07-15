@@ -8,6 +8,9 @@ import {
   MY_ORDERS_REQUEST,
   MY_ORDERS_SUCCESS,
   MY_ORDERS_FAILURE,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_SUCCESS,
+  ORDER_DETAILS_FAILURE,
 } from './actionTypes';
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -48,6 +51,54 @@ export const myOrders = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MY_ORDERS_FAILURE,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const orderDetailsReducer = (state = { order: {} }, action) => {
+  switch (action.type) {
+    case ORDER_DETAILS_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case ORDER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        order: action.payload,
+      };
+
+    case ORDER_DETAILS_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Get order details
+export const getOrderDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ORDER_DETAILS_REQUEST });
+
+    const { data } = await axios.get(`/api/v1/order/${id}`);
+
+    dispatch({
+      type: ORDER_DETAILS_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DETAILS_FAILURE,
       payload: error.response.data.message,
     });
   }
