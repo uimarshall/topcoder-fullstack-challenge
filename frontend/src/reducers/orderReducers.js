@@ -3,6 +3,9 @@ import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAILURE,
   CLEAR_ERRORS,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
+  MY_ORDERS_FAILURE,
 } from '../actions/actionTypes';
 
 export const newOrderReducer = (state = {}, action) => {
@@ -25,6 +28,36 @@ export const newOrderReducer = (state = {}, action) => {
         error: action.payload,
       };
 
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Currently logged in user orders reducer
+export const myOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case MY_ORDERS_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case MY_ORDERS_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+
+    case MY_ORDERS_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     case CLEAR_ERRORS:
       return {
         ...state,
