@@ -9,8 +9,9 @@ const APIFeatures = require('../utils/apiFeatures');
 const StatusText = require('../lib/constants/constants');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
-const { ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode } =
-  HttpStatus;
+const {
+  ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode,
+} = HttpStatus;
 
 // @desc: Create a new product/device
 // @route: /api/v1/products/admin/new
@@ -59,7 +60,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     .search()
     .filter();
   let productsFound = await apiFeatures.query;
-  let filteredProductsCount = productsFound.length;
+  const filteredProductsCount = productsFound.length;
   apiFeatures.pagination(resPerPage);
   productsFound = await apiFeatures.query;
   console.log(productsFound);
@@ -181,7 +182,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
       new: true,
       runValidators: true,
       useFindAndModify: false,
-    }
+    },
   );
   res.status(StatusCodes.OK).json({
     data: productFound,
@@ -261,7 +262,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   // If the user has already reviewed product, then update the review.
   const product = await Product.findById(productId);
   const isReviewed = product.reviews.find(
-    (review) => review.user.toString() === req.user._id.toString()
+    (review) => review.user.toString() === req.user._id.toString(),
   );
   if (isReviewed) {
     product.reviews.forEach((review) => {
@@ -275,9 +276,8 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     // update numOfReviews
     product.numOfReviews = product.reviews.length;
   }
-  product.ratings =
-    product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    product.reviews.length;
+  product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0)
+    / product.reviews.length;
   await product.save({ validateBeforeSave: false });
   res.status(StatusCodes.OK).json({
     success: true,
@@ -306,14 +306,13 @@ exports.deleteProductReviews = catchAsyncErrors(async (req, res, next) => {
   // Filter/return the reviews that we don't want to delete,
   //  i.e. the ones not passed in query string
   const reviews = productFound.reviews.filter(
-    (review) => review._id.toString() !== req.query.id.toString()
+    (review) => review._id.toString() !== req.query.id.toString(),
   );
 
   const numOfReviews = reviews.length;
 
-  const ratings =
-    productFound.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    reviews.length;
+  const ratings = productFound.reviews.reduce((acc, item) => item.rating + acc, 0)
+    / reviews.length;
   await Product.findByIdAndUpdate(
     req.query.productId,
     {
@@ -321,7 +320,7 @@ exports.deleteProductReviews = catchAsyncErrors(async (req, res, next) => {
       ratings,
       numOfReviews,
     },
-    { new: true, runValidators: true, useFindAndModify: false }
+    { new: true, runValidators: true, useFindAndModify: false },
   );
   res.status(StatusCodes.OK).json({
     success: true,

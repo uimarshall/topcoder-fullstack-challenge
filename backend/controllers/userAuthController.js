@@ -14,8 +14,9 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 
 const { ERROR, FAIL, SUCCESS } = StatusText;
-const { ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode } =
-  HttpStatus;
+const {
+  ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode,
+} = HttpStatus;
 
 // @desc: Register a new user
 // @route: /api/v1/users/register
@@ -121,9 +122,9 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
   // Create reset password url
   // req.protocol=https or http
-  /*const resetUrl = `${req.protocol}://${req.get(
+  /* const resetUrl = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/users/password/reset/${resetToken}`;*/
+  )}/api/v1/users/password/reset/${resetToken}`; */
 
   const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
@@ -167,7 +168,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   if (!userFound) {
     return next(
-      new ErrorHandler('Password reset token is invalid or has expired', 400)
+      new ErrorHandler('Password reset token is invalid or has expired', 400),
     );
   }
 
@@ -280,7 +281,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const userFound = await User.findById(req.params.id);
   if (!userFound) {
     return next(
-      new ErrorHandler(`User is not found with this id: ${req.params.id}`)
+      new ErrorHandler(`User is not found with this id: ${req.params.id}`),
     );
   }
 
@@ -317,7 +318,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const userFound = await User.findById(req.params.id);
   if (!userFound) {
     return next(
-      new ErrorHandler(`User is not found with this id: ${req.params.id}`)
+      new ErrorHandler(`User is not found with this id: ${req.params.id}`),
     );
   }
 
